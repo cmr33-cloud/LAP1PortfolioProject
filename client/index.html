@@ -29,7 +29,7 @@
 <section >
     <div class="entryCard">
     <h3>New Entry</h3>
-
+    <p class="entryDate">13.09.2021</p>
         <form id ="newEntry">
             <input id="newEntryTitle" type="text" placeholder="Title">
             <input id="newEntryText" type="textarea" placeholder="Your entry (max 5000 characters)">
@@ -46,6 +46,7 @@
             <!-- ----------------------->
             <input id="addNewEntryBtn" type="submit" value="Add entry">
         </form>
+
         <text id = "addEntry" hidden=true>Entry successfully added!</text>
     </div> 
 </section>
@@ -56,21 +57,31 @@
 
 <!--   entries cards for  testing layout  -->
 <div id="1">
-    <h3 class="entryTitle">Entry 1 Title</h3>
+    <p class="entryDate">20.09.2021</p>
+    <h3 class="entryTitle">Entry 1 Title</h3> 
     <img  class="entryImg" src="https://picsum.photos/100" alt="">
-    <div class="entryText">Lorem ipsum lorem ipsum</div>
+    <div class="entryDescription">Lorem ipsum lorem ipsum</div>
     <div class="entryReactions">
       <div class="entryComments">Number of comments</div>
       <div class="entryEmoji"> </div>
-      <i class="far fa-smile"></i>
+      <a  id="emoji1" class="emojis" > 
+          <i class="far fa-smile"></i>
+          <p>0</p>
+      </a>
+      <a  id="emoji2" class="emojis" > 
         <i class="far fa-surprise"></i>
+        <p>3</p>
+    </a>
+    <a  id="emoji3" class="emojis" > 
         <i class="fas fa-angry"></i>
+        <p>0</p>
+    </a>
     </div>
 </div>
 <div id="2">
     <h3 class="entryTitle">Entry 2 Title</h3>
     <img  class="entryImg" src="https://picsum.photos/100" alt="">
-    <div class="entryText">Lorem ipsum lorem ipsum</div>
+    <div class="entryDescription">Lorem ipsum lorem ipsum</div>
     <div class="entryReactions">
       <div class="entryComments">Number of comments</div>
       <div class="entryEmoji">
@@ -94,8 +105,11 @@
           <div class="entryEmoji"> reactions</div>
         </div>
      <div class="comments">
-         <p class="singleComment">comment1</p>
-         <p class="singleComment">comment2</p>
+         <div class="singleComment">
+             <p class="commentText"> lorem lorem</p>
+             <p class="entryDate">17.09.2021</p>>
+         </div>
+       
 
 
         <form id ="newComment">

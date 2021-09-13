@@ -10,16 +10,15 @@ const searchGiphy = document.getElementById('searchGyphy');
 // Elements  - entry with ID
 const newCommentInput = document.getElementById('newCommentText');
 const newCommentBtn = document.getElementById('addNewCommentBtn');
-const selectEntry = document.querySelectorAll('#card')
+const selectEntry = document.getElementById('article')
+console.log(selectEntry)
 
 const emojis = document.getElementById('addEntryEmojis');
 
 
 //   Event Listeners  -  new entry
-selectEntry.forEach(element => {
-    
-    element.addEventListener('click', entryById)
-})
+selectEntry.addEventListener('click', entryById)
+
 
 //   Event Listeners  -  new entry
 
@@ -86,7 +85,7 @@ async function getanew(){let url;
   emojis.addEventListener('click', (e) => {
     e.preventDefault();
     let targetEmoji = e.target.closest('a');
-    let entryId = e.target.closest('section').id;
+    let entryId = e.target.closest('article').id;
     // change number on the entry page
     let emojiCount = parseInt(targetEmoji.querySelector('p').textContent);
     let emojiIndex = targetEmoji.id.slice(-1);
@@ -122,14 +121,14 @@ document.querySelector("body").addEventListener("keydown", (e) => {
 function entryById(e) {
     try {
         e.preventDefault()
-        let id = e.target.closest(section)
+        let id = e.target.closest('article').value
         console.log(id)
         document.getElementById('timeline').style.display="none"
         fetch(`http://localhost:3000/entry/${id}`)
         .then( r => r.json())
         .then( data => {
             console.log(data)
-            let entry = `<div class="card" value = ${id}>
+            let entry = `<article class="card" value = ${id}>
             <h3 class="entryTitle">${data['title']}</h3>
             <img  class="entryImg" src="" alt="">
             <div class="entryDescription">${data['description']}</div>
@@ -141,7 +140,7 @@ function entryById(e) {
                 <i class="fas fa-angry"></i>
               </div>
             </div>
-        </div>`
+        </article>`
         document.getElementById('displayById').insertAdjacentElement('beforeend', entry)
         })
     }

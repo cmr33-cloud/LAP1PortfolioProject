@@ -6,18 +6,121 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+<!--   Font Awsome -->
+<script src="https://kit.fontawesome.com/3b78ae9316.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="styles.css">
     <script defer src = "script.js"></script>
 </head>
 
 <body>
-    <section style="color:red">
-    <form id ="newentry" hidden = true>
-        <input type="text" placeholder="Title">
-        <input type="text" placeholder="Description">
-        <input type="textarea" placeholder="Your entry (max 5000 characters)">
-        <input id="submit" type="submit" value="Add entry">
-    </form>
-    <text id = "success" hidden=true>Entry successfully added!</text>
+ <!-- ----- top bar with 'search  post by keywords' ---- -->   
+ <form id="search-bar">
+    <input type="search" id="searchByKeywordInput" placeholder="Search entries by keyword ..." />
+    <input type="submit" id="searchByKeywordBtn" value="search">
+</form>  
+
+<!--  -------------- logo and header -------  -->
+<h1> Lap 1 project </h1>
+
+<!--  -------------- add new entry card -------  -->
+
+<section >
+    <div class="entryCard">
+    <h3>New Entry</h3>
+
+        <form id ="newEntry">
+            <input id="newEntryTitle" type="text" placeholder="Title">
+            <input id="newEntryText" type="textarea" placeholder="Your entry (max 5000 characters)">
+        
+            <!-- -- add GIF ------- -->
+        
+            <form id="gifForm">
+                <input type="search" id="searchGyphy" placeholder="Search GIPHY">
+                <div id="gif-form-btns">
+                    <input id="gifPreviewBtn" type="submit" value="Preview">
+                    <input id="addGiphy" type="button" value="Add">
+                </div>
+            </form>
+            <!-- ----------------------->
+            <input id="addNewEntryBtn" type="submit" value="Add entry">
+        </form>
+        <text id = "addEntry" hidden=true>Entry successfully added!</text>
+    </div> 
 </section>
+
+<!--  --------------   main timeline -------  -->
+
+<section id="timeline" class ="grid">
+
+<!--   entries cards for  testing layout  -->
+<div id="1">
+    <h3 class="entryTitle">Entry 1 Title</h3>
+    <img  class="entryImg" src="https://picsum.photos/100" alt="">
+    <div class="entryText">Lorem ipsum lorem ipsum</div>
+    <div class="entryReactions">
+      <div class="entryComments">Number of comments</div>
+      <div class="entryEmoji"> </div>
+      <i class="far fa-smile"></i>
+        <i class="far fa-surprise"></i>
+        <i class="fas fa-angry"></i>
+    </div>
+</div>
+<div id="2">
+    <h3 class="entryTitle">Entry 2 Title</h3>
+    <img  class="entryImg" src="https://picsum.photos/100" alt="">
+    <div class="entryText">Lorem ipsum lorem ipsum</div>
+    <div class="entryReactions">
+      <div class="entryComments">Number of comments</div>
+      <div class="entryEmoji">
+        <i class="far fa-smile"></i>
+        <i class="far fa-surprise"></i>
+        <i class="fas fa-angry"></i>
+      </div>
+    </div>
+</div>
+        
+        
+</section>
+
+<!--  ------ adding comments and ractions ----->
+<section id="" class="entryCard">
+    <div id="2">
+        <h3 class="entryTitle">Entry 2 Title</h3>
+        <img  class="entryImg" src="https://picsum.photos/100" alt="">
+        <div class="entryText">Lorem ipsum lorem ipsum</div>
+        <div class="entryReactions">
+          <div class="entryEmoji"> reactions</div>
+        </div>
+     <div class="comments">
+         <p class="singleComment">comment1</p>
+         <p class="singleComment">comment2</p>
+
+
+        <form id ="newComment">
+            <input id="newCommentText" type="textarea" placeholder="Your comment">
+            <input id="addNewCommentBtn" type="submit" value="Add comment">
+
+        </form>    
+
+
+     </div>
+     <div class="emojis">
+
+     </div>
+
+
+    </div>
+</section>
+
+<!--  --------------  footer with scroller -------  -->
+
+<footer class="footer">
+    <p> &copy; copyright 2021</p>
+    <a href="#">Back to top</a>
+    </div>
+  </footer>
+
 </body>
 </html>

@@ -1,3 +1,23 @@
+
+// Elements     - HTML
+const timeline = document.getElementById('timeline');
+const newEntryBtn = document.getElementById('addNewEntryBtn');
+const newEntryForm = document.getElementById('newEntry');
+
+// Elements  -  GIPHY
+const addGiphyBtn = document.getElementById('addGiphy');
+const searchGiphy = document.getElementById('searchGyphy');
+
+// Elements  - entry with ID
+const newCommentInput = document.getElementById('newCommentText');
+const newCommentBtn = document.getElementById('addNewCommentBtn');
+
+
+//   Event Listeners  -  new entry
+
+
+
+
 function getTags(string){
     let keywords = ["a", "of", "the", "in", "to"];
     let allwords = [];

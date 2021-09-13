@@ -1,13 +1,9 @@
 const express = require("express"),
   cors = require("cors"),
-  entries = require("../data"),
-  app = express();
-function getTags(string){
-    let keywords = ["a", "of", "the", "in", "to"];
-    for(let a of string.split(" ")){
-    
-    }
-}
+  entries = require("./data"),
+  Entries = require("./models/entries")
+  app = express(),
+  port = 3000;
 app.use(express.json());
 app.use(cors());
 
@@ -18,16 +14,13 @@ app.get("/", (req, res) => {
   res.send("Hello there!");
 });
 
-app.get("/newentry", (req, res) => {
-  let newentry = {
-    title: req.query.title,
-    description: req.query.description,
-    entry: req.query.entry,
-    date: Date(),
-    tags: getTags(req.query.entry),
-  };
-  entries.push(newentry);
+app.post("/newentry", (req, res) => {
+  const data = req.body;
+  const newEntry = Entries.createEntry(data);
+  res.status(201).send(newEntry);
 });
+
+// router.post('/', (req, res) => );
 
 app.get("/allEntries", (req, res) => {res.json(entries)
   });
@@ -37,7 +30,6 @@ app.post("/", (req, res) => {
 });
 
 
-app.listen(localhost, port, () => {console.log(`Listening on localhost:${port}...`))
-});
+app.listen(port, () => {console.log(`Listening on localhost:${port}...`)})
 
 module.exports = app;

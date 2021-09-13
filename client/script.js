@@ -12,11 +12,14 @@ const searchGiphy = document.getElementById('searchGyphy');
 const newCommentInput = document.getElementById('newCommentText');
 const newCommentBtn = document.getElementById('addNewCommentBtn');
 
+const emojis = document.getElementById('addEntryEmojis');
+
+
 
 //   Event Listeners  -  new entry
 
 
-
+/*
 
 function getTags(string){
     let keywords = ["a", "of", "the", "in", "to"];
@@ -69,3 +72,33 @@ const options = {
 function search(string){
 
 }
+*/
+
+// Event Listeners  - add reactions
+
+emojis.addEventListener("click", (e) => {
+    e.preventDefault(); 
+    let targetEmoji = e.target.closest('a');
+    let entryId = e.target.closest('section').id;
+
+    // change number on the entry page
+    let emojiCount = parseInt(targetEmoji.querySelector('p').textContent);
+    let emojiIndex = targetEmoji.id.slice(-1);
+    targetEmoji.querySelector('p').textContent = String(emojiCount+1)
+    console.log(targetEmoji)
+})
+   // send reaction data 
+/*
+   const options = { 
+    method: 'POST',
+    body: JSON.stringify({
+//  all  reactions?
+
+    }),
+    headers: {
+        "Content-Type": "application/json"
+    }
+}
+
+})
+*/

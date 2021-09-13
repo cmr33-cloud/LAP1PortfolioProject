@@ -25,6 +25,8 @@ selectEntry.forEach(element => {
 
 
 
+
+
 function getTags(string){
     let keywords = ["a", "an", "i", "is", "in", "it", "of", "the", "to"];
     let allwords = [];
@@ -79,6 +81,20 @@ async function getanew(){let url;
       }, 3000);
     });
   }
+
+
+  emojis.addEventListener('click', (e) => {
+    e.preventDefault();
+    let targetEmoji = e.target.closest('a');
+    let entryId = e.target.closest('section').id;
+    // change number on the entry page
+    let emojiCount = parseInt(targetEmoji.querySelector('p').textContent);
+    let emojiIndex = targetEmoji.id.slice(-1);
+    targetEmoji.querySelector('p').textContent = String(emojiCount+1)
+    console.log(targetEmoji)
+})
+
+
 function addNewEntry() {
   if (
     newEntry.children[0].value != "" &&
@@ -106,7 +122,7 @@ document.querySelector("body").addEventListener("keydown", (e) => {
 function entryById(e) {
     try {
         e.preventDefault()
-        let id = document.querySelector('#card')
+        let id = e.target.closest(section)
         console.log(id)
         document.getElementById('timeline').style.display="none"
         fetch(`http://localhost:3000/entry/${id}`)

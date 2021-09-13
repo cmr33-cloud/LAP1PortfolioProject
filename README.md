@@ -31,3 +31,49 @@ Community journaling website created by Callum, Elena and Quinn
      - [ ] Future features **Should**  
      - [ ] Acknowledgements **Should**
 
+
+
+
+
+
+## Installation & Usage
+
+### Installation
+
+* Clone or download the repo.
+
+### Usage
+
+* Open the terminal.
+* Navigate to /server
+* Type `npm run dev` to start server on port 3000
+
+## Technologies
+
+* JavaScript
+* Express
+
+
+### Testing
+
+* Jest
+
+
+## Process
+
+
+## Wins & Challenges
+
+### Wins
+
+
+
+### Challenges
+
+
+## Bugs
+
+
+
+## Licence
+

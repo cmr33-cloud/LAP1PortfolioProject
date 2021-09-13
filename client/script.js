@@ -10,8 +10,7 @@ const searchGiphy = document.getElementById('searchGyphy');
 // Elements  - entry with ID
 const newCommentInput = document.getElementById('newCommentText');
 const newCommentBtn = document.getElementById('addNewCommentBtn');
-const selectEntry = document.getElementById('article')
-console.log(selectEntry)
+const selectEntry = document.getElementById('timeline')
 
 const emojis = document.getElementById('addEntryEmojis');
 
@@ -121,14 +120,16 @@ document.querySelector("body").addEventListener("keydown", (e) => {
 function entryById(e) {
     try {
         e.preventDefault()
-        let id = e.target.closest('article').value
+        let id = e.target.closest('article').dataset.value
         console.log(id)
         document.getElementById('timeline').style.display="none"
+        
         fetch(`http://localhost:3000/entry/${id}`)
         .then( r => r.json())
         .then( data => {
             console.log(data)
-            let entry = `<article class="card" value = ${id}>
+            let div = document.getElementById("displayById")
+            let entry = `<article class="card" data-value = ${id}>
             <h3 class="entryTitle">${data['title']}</h3>
             <img  class="entryImg" src="" alt="">
             <div class="entryDescription">${data['description']}</div>
@@ -141,7 +142,9 @@ function entryById(e) {
               </div>
             </div>
         </article>`
-        document.getElementById('displayById').insertAdjacentElement('beforeend', entry)
+        
+        console.log(entry)
+        div.insertAdjacentHTML('beforeend', entry)
         })
     }
     catch (error) {

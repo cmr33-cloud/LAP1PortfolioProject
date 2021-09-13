@@ -13,12 +13,16 @@ const newCommentInput = document.getElementById('newCommentText');
 const newCommentBtn = document.getElementById('addNewCommentBtn');
 const selectEntry = document.querySelectorAll('#card')
 
+const emojis = document.getElementById('addEntryEmojis');
+
 
 //   Event Listeners  -  new entry
 selectEntry.forEach(element => {
     
     element.addEventListener('click', entryById)
 })
+
+//   Event Listeners  -  new entry
 
 
 

@@ -11,9 +11,14 @@ const searchGiphy = document.getElementById('searchGyphy');
 // Elements  - entry with ID
 const newCommentInput = document.getElementById('newCommentText');
 const newCommentBtn = document.getElementById('addNewCommentBtn');
+const selectEntry = document.querySelectorAll('#card')
 
 
 //   Event Listeners  -  new entry
+selectEntry.forEach(element => {
+    
+    element.addEventListener('click', entryById)
+})
 
 
 
@@ -36,6 +41,7 @@ console.log(ordered);
 let tags = [ordered[0][0], ordered[1][0], ordered[2][0]];
 return tags
 };
+
 submit.addEventListener("click", (e) => {
     e.preventDefault();
     if(newentry.children[0].value != "" && 
@@ -68,4 +74,36 @@ const options = {
 
 function search(string){
 
+}
+
+function entryById(e) {
+    try {
+        e.preventDefault()
+        let id = document.querySelector('#card')
+        console.log(id)
+        document.getElementById('timeline').style.display="none"
+        fetch(`http://localhost:3000/entry/${id}`)
+        .then( r => r.json())
+        .then( data => {
+            console.log(data)
+            let entry = `<div class="card" value = ${id}>
+            <h3 class="entryTitle">${data['title']}</h3>
+            <img  class="entryImg" src="" alt="">
+            <div class="entryDescription">${data['description']}</div>
+            <div class="entryReactions">
+              <div class="entryComments">${data['comments'].length}</div>
+              <div class="entryEmoji">
+                <i class="far fa-smile"></i>
+                <i class="far fa-surprise"></i>
+                <i class="fas fa-angry"></i>
+              </div>
+            </div>
+        </div>`
+        document.getElementById('displayById').insertAdjacentElement('beforeend', entry)
+        })
+    }
+    catch (error) {
+        console.log(error);
+
+    }
 }

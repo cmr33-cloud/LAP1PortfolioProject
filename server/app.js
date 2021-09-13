@@ -29,6 +29,10 @@ app.post("/", (req, res) => {
   res.status(405).send("Not allowd!");
 });
 
+app.get('/entry/:id', (req, res) => {
+    res.send(entries[req.params.id-1])
+    })
+
 
 app.listen(port, () => {console.log(`Listening on localhost:${port}...`)})
 

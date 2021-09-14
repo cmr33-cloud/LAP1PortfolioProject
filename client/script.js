@@ -76,7 +76,8 @@ async function getanew() {
   await fetch(newgif)
     .then((res) => res.json())
     .then((res) => {
-      url = res.data[0].url;
+        console.log(res)
+      url = res.data[0].embed_url;
     });
   const options = await {
     method: "POST",
@@ -107,11 +108,11 @@ async function getanew() {
 //  Even Listener  -  add emoji reactions
 
 
-function registerEmoji(e)
+// function registerEmoji(e)
 
-let targetEmoji = e.target.closest('a');
-console.log(targetEmoji)
-let entryId = e.target.closest('article').id;
+// let targetEmoji = e.target.closest('a');
+// console.log(targetEmoji)
+// let entryId = e.target.closest('article').id;
 
 function sendEmojis(id, emoji){
     const options = {
@@ -182,24 +183,58 @@ function entryById(e) {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
-        let entry = `<article class="card" data-value = ${id}>
-            <h3 class="entryTitle">${data["title"]}</h3>
-            <img  class="entryImg" src="" alt="">
-            <div class="entryDescription">${data["description"]}</div>
-            <div class="entryReactions">
-              <div class="entryComments">${data["comments"].length}</div>
-              <div class="entryEmoji">
-                <i class="far fa-smile"></i>
-                <i class="far fa-surprise"></i>
-                <i class="fas fa-angry"></i>
-              </div>
-            </div>
-        </article>`;
-        document
-          .getElementById("displayById")
-          .insertAdjacentHTML("beforeend", entry);
+        let current = document.getElementById('displayById')
+        current.class="card"; current.dataset.value=data.id
+        let title = document.createElement('h3'), image = document.createElement('iframe'), entryText = document.createElement('div'),
+       allTheEmojis = document.createElement('div'), emojiCounts = document.createElement('a'),
+       comments = document.createElement('div'), newComment = document.createElement('form');
+       title.class = 'entryTitle'; image.class = 'entryImage'; entryText.class = 'entryBody'; 
+        current.appendChild(title); title.textContent = data.title;
+        current.appendChild(image); image.src = data.image;
+        current.appendChild(entryText); entryText.textContent = data.body;
+        current.appendChild(allTheEmojis); 
+        current.appendChild(emojiCounts);
+        current.appendChild(comments);
+        current.appendChild(newComment);
+        // let entry = `<article class="card" data-value = ${id}>
+        //     <h3 class="entryTitle">${data["title"]}</h3>
+        //     <img  class="entryImg" src="${data["image"]}" alt="">
+        //     <div class="entryDescription">${data["description"]}</div>
+        //     <div class="entryReactions">
+        //       <div class="entryComments">${data["comments"].length}</div>
+        //       <div class="entryEmoji">
+        //         <i class="far fa-smile"></i>
+        //         <i class="far fa-surprise"></i>
+        //         <i class="fas fa-angry"></i>
+        //       </div>
+        //     </div>
+        // </article>`;
+        // document
+        //   .getElementById("displayById")
+        //   .insertAdjacentHTML("beforeend", entry);
       });
   } catch (error) {
     console.log(error);
   }
 }
+
+fetch('http://localhost:3000/allentries')
+.then((r) => r.json())
+.then((res) => {
+    for(let a of res){
+        let current = document.createElement('article')
+        selectEntry.appendChild(current);
+        current.class="card"; current.dataset.value=a.id
+        let title = document.createElement('h3'), image = document.createElement('iframe'), entryText = document.createElement('div'),
+       allTheEmojis = document.createElement('div'), emojiCounts = document.createElement('a'),
+       comments = document.createElement('div'), newComment = document.createElement('form');
+       title.class = 'entryTitle'; image.class = 'entryImage'; entryText.class = 'entryBody';
+        current.appendChild(title); title.textContent = a.title;
+        current.appendChild(image); image.src = a.image;
+        current.appendChild(entryText); entryText.textContent = a.body;
+        current.appendChild(allTheEmojis); 
+        current.appendChild(emojiCounts);
+        current.appendChild(comments);
+        current.appendChild(newComment);
+       }
+})

@@ -10,6 +10,8 @@ class Entries {
         this.time = data.time;
         this.tags = data.tags;
         this.date = Date();
+        this.emojis = [0,0,0]
+        this.comments = []
     }
     static getAll(){}
     static createEntry(data){

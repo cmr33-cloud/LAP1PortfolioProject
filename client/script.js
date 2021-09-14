@@ -12,7 +12,7 @@ const newCommentInput = document.getElementById("newCommentText");
 const newCommentBtn = document.getElementById("addNewCommentBtn");
 const selectEntry = document.getElementById("timeline");
 
-// const emojis = document.getElementById("addEntryEmojis");
+const emojis = document.getElementById("addEntryEmojis");
 
 //   Event Listeners  -  new entry
 selectEntry.addEventListener("click", entryById);
@@ -125,14 +125,15 @@ async function getanew() {
 
 function handleEmoji(e){
 let targetEmoji = e.target.closest('a');
-console.log(targetEmoji)
-let entryId = e.target.closest('article').id;
+console.log(targetEmoji);
+let entry = e.target.closest('article');
+let entryId = entry.id;
     // change number on the entry page
     let emojiCount = parseInt(targetEmoji.querySelector('p').textContent)+1;
     targetEmoji.querySelector('p').textContent = String(emojiCount)
 
 //
-sendEmoji(entryId, targetEmoji.id, emojiCount)
+sendEmoji(entryId, parseInt(targetEmoji.name), emojiCount)
 }
 
 function sendEmoji(id, emojiId, emojiCount){
@@ -140,13 +141,13 @@ function sendEmoji(id, emojiId, emojiCount){
       
     function emojiData(emId, emCount){
       if (emId ==='emoji1') {
-        return {"emoji1": emCount}
+        return [emojiId, emCount]
       } 
       else if (emId ==='emoji2') {
-        return {"emoji2": emCount}
+        return [emojiId, emCount]
       } else {
       
-        return {"emoji3": emCount}
+        return [emojiId, emCount]
       }
        }
     console.log(emojiData(emojiId,emojiCount))
@@ -157,7 +158,7 @@ function sendEmoji(id, emojiId, emojiCount){
           'Content-Type': 'application/json',
         },
       };
-
+console.log(options);
     
     fetch(`http://localhost:3000/entry/${id}/reactions`, options)
     .then((r) => r.json())

@@ -10,23 +10,28 @@ const searchGiphy = document.getElementById("searchGyphy");
 // Elements  - entry with ID
 const newCommentInput = document.getElementById("newCommentText");
 const newCommentBtn = document.getElementById("addNewCommentBtn");
-const selectEntry = document.querySelector("article");
-console.log(selectEntry);
+const selectEntry = document.getElementById("timeline");
 
 const emojis = document.getElementById("addEntryEmojis");
 
 //   Event Listeners  -  new entry
 selectEntry.addEventListener("click", entryById);
 
-searchByKeywordBtn.addEventListener("click", (e) => {e.preventDefault();
+searchByKeywordBtn.addEventListener("click", (e) => {
+  e.preventDefault();
   let searchers = searchByKeywordInput.value.split(" ");
   let url = "http://localhost:3000/search?word=" + searchers[0].toLowerCase();
   for (let i = 1; i < searchers.length; i++) {
     url += "&word" + String(i) + "=" + searchers[i].toLowerCase();
   }
-  fetch(url).then((res) => res.json()).then(res=>{console.log(res)});
+  fetch(url)
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+    });
 });
 
+addEntry.style = "color:red";
 //   Event Listeners  -  new entry
 
 function getTags(string) {
@@ -137,14 +142,14 @@ document.querySelector("body").addEventListener("keydown", (e) => {
 function entryById(e) {
   try {
     e.preventDefault();
-    let id = e.target.closest("article").value;
+    let id = e.target.closest("article").dataset.value;
     console.log(id);
-    document.getElementById("timeline").style.display = "none";
+    selectEntry.style.display = "none";
     fetch(`http://localhost:3000/entry/${id}`)
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
-        let entry = `<article class="card" value = ${id}>
+        let entry = `<article class="card" data-value = ${id}>
             <h3 class="entryTitle">${data["title"]}</h3>
             <img  class="entryImg" src="" alt="">
             <div class="entryDescription">${data["description"]}</div>
@@ -159,7 +164,7 @@ function entryById(e) {
         </article>`;
         document
           .getElementById("displayById")
-          .insertAdjacentElement("beforeend", entry);
+          .insertAdjacentHTML("beforeend", entry);
       });
   } catch (error) {
     console.log(error);

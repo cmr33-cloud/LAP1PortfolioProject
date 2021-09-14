@@ -120,10 +120,22 @@ sendEmoji(entryId, targetEmoji.id, emojiCount)
 
 function sendEmoji(id, emojiId, emojiCount){
     console.log(emojiId)
-      const emojiData = { emojiId : emojiCount}
+      
+    function emojiData(emId, emCount){
+      if (emId ==='emoji1') {
+        return {"emoji1": emCount}
+      } 
+      else if (emId ==='emoji2') {
+        return {"emoji2": emCount}
+      } else {
+      
+        return {"emoji3": emCount}
+      }
+       }
+    console.log(emojiData(emojiId,emojiCount))
     const options = {
         method: 'PATCH',
-        body: JSON.stringify(emojiData),
+        body: JSON.stringify(emojiData(emojiId,emojiCount)),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -141,7 +153,6 @@ function sendEmoji(id, emojiId, emojiCount){
     e.preventDefault();
     handleEmoji(e);
 })
-
 
 //  --------------------- new Entry 
 function addNewEntry() {

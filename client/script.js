@@ -121,48 +121,57 @@ async function getanew() {
   });
 }
 
-//  Even Listener  -  add emoji reactions
+// --  add emoji reactions
 
-// function registerEmoji(e)
+function handleEmoji(e){
+let targetEmoji = e.target.closest('a');
+console.log(targetEmoji)
+let entryId = e.target.closest('article').id;
+    // change number on the entry page
+    let emojiCount = parseInt(targetEmoji.querySelector('p').textContent)+1;
+    targetEmoji.querySelector('p').textContent = String(emojiCount)
 
-// let targetEmoji = e.target.closest('a');
-// console.log(targetEmoji)
-// let entryId = e.target.closest('article').id;
-
-function sendEmojis(id, emoji) {
-  const options = {
-    method: "PUT",
-    body: JSON.stringify(emojiData),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const emojiData = {
-    id: id,
-    reaction: reaction,
-  };
-
-  fetch(`""`, options)
-    .then((r) => r.json())
-    .then(updateReaction)
-    .catch(console.warn);
+//
+sendEmoji(entryId, targetEmoji.id, emojiCount)
 }
 
-//   emojis.addEventListener('click', (e) => {
+function sendEmoji(id, emojiId, emojiCount){
+    console.log(emojiId)
+      
+    function emojiData(emId, emCount){
+      if (emId ==='emoji1') {
+        return {"emoji1": emCount}
+      } 
+      else if (emId ==='emoji2') {
+        return {"emoji2": emCount}
+      } else {
+      
+        return {"emoji3": emCount}
+      }
+       }
+    console.log(emojiData(emojiId,emojiCount))
+    const options = {
+        method: 'PATCH',
+        body: JSON.stringify(emojiData(emojiId,emojiCount)),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
-//     e.preventDefault();
-//     registerEmoji(e);
+    
+    fetch(`http://localhost:3000/entry/${id}/reactions`, options)
+    .then((r) => r.json())
+    .then((r) => console.log(r))
+    .catch(console.warn);
 
-//     let targetEmoji = e.target.closest('a');
-//     console.log(targetEmoji)
-//     let entryId = e.target.closest('article').id;
-//     // change number on the entry page
-//     let emojiCount = parseInt(targetEmoji.querySelector('p').textContent);
-//     let emojiIndex = targetEmoji.id.slice(-1);
-//     targetEmoji.querySelector('p').textContent = String(emojiCount+1)
-//     //  send data
-// })
+}
 
+  emojis.addEventListener('click', (e) => {
+    e.preventDefault();
+    handleEmoji(e);
+})
+
+//  --------------------- new Entry 
 function addNewEntry() {
   if (
     newEntry.children[0].value != "" &&
@@ -186,7 +195,7 @@ document.querySelector("body").addEventListener("keydown", (e) => {
     addNewEntry();
   }
 });
-
+//      ------  get Entry By Id
 function entryById(e) {
   try {
     e.preventDefault();

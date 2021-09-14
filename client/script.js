@@ -104,16 +104,49 @@ async function getanew() {
   });
 }
 
-emojis.addEventListener("click", (e) => {
-  e.preventDefault();
-  let targetEmoji = e.target.closest("a");
-  let entryId = e.target.closest("article").id;
-  // change number on the entry page
-  let emojiCount = parseInt(targetEmoji.querySelector("p").textContent);
-  let emojiIndex = targetEmoji.id.slice(-1);
-  targetEmoji.querySelector("p").textContent = String(emojiCount + 1);
-  console.log(targetEmoji);
-});
+//  Even Listener  -  add emoji reactions
+
+
+function registerEmoji(e)
+
+let targetEmoji = e.target.closest('a');
+console.log(targetEmoji)
+let entryId = e.target.closest('article').id;
+
+function sendEmojis(id, emoji){
+    const options = {
+        method: 'PUT',
+        body: JSON.stringify(emojiData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const emojiData = {
+        id: id,
+        reaction: reaction,
+      };
+
+    fetch(`""`, options)
+    .then((r) => r.json())
+    .then(updateReaction)
+    .catch(console.warn);
+}
+
+  emojis.addEventListener('click', (e) => {
+    
+    e.preventDefault();
+    registerEmoji(e);
+    
+    let targetEmoji = e.target.closest('a');
+    console.log(targetEmoji)
+    let entryId = e.target.closest('article').id;
+    // change number on the entry page
+    let emojiCount = parseInt(targetEmoji.querySelector('p').textContent);
+    let emojiIndex = targetEmoji.id.slice(-1);
+    targetEmoji.querySelector('p').textContent = String(emojiCount+1)
+    //  send data 
+})
+
 
 function addNewEntry() {
   if (

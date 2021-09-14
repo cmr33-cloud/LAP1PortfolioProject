@@ -1,9 +1,10 @@
 const express = require("express"),
   cors = require("cors"),
-  entries = require("./data"),
+  entries = require("./entries.json"),
   Entries = require("./models/entries")
   app = express(),
-  port = 3000;
+  port = 3000,
+  fs = require('fs');
 app.use(express.json());
 app.use(cors());
 
@@ -14,11 +15,18 @@ app.get("/", (req, res) => {
   res.send("Hello there!");
 });
 
-app.post("/newentry", (req, res) => {
+app.post("/newentry", (req, res) => { //handles post requests and then writes data to entries.json
   const data = req.body;
   const newEntry = Entries.createEntry(data);
-  res.status(201).send(newEntry);
-});
+  const fileData = JSON.parse(fs.readFileSync('entries.json'))
+  fileData.push(newEntry)
+  fs.writeFileSync('entries.json', JSON.stringify(fileData, null, 2), (err) => {
+    if (err) {
+        throw err;
+    }
+})
+res.status(201).send(newEntry);
+})
 
 // router.post('/', (req, res) => );
 

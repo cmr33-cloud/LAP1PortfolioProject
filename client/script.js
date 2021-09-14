@@ -166,10 +166,10 @@ function sendEmoji(id, emojiId, emojiCount){
 
 }
 
-  emojis.addEventListener('click', (e) => {
-    e.preventDefault();
-    handleEmoji(e);
-})
+//   emojis.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     handleEmoji(e);
+// })
 
 //  --------------------- new Entry 
 function addNewEntry() {

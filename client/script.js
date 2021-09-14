@@ -104,50 +104,46 @@ async function getanew() {
   });
 }
 
-//  Even Listener  -  add emoji reactions
+// --  add emoji reactions
 
-
-function registerEmoji(e)
-
+function handleEmoji(e){
 let targetEmoji = e.target.closest('a');
 console.log(targetEmoji)
 let entryId = e.target.closest('article').id;
+    // change number on the entry page
+    let emojiCount = parseInt(targetEmoji.querySelector('p').textContent)+1;
+    targetEmoji.querySelector('p').textContent = String(emojiCount)
 
-function sendEmojis(id, emoji){
+//
+sendEmoji(entryId, targetEmoji.id, emojiCount)
+}
+
+function sendEmoji(id, emojiId, emojiCount){
+    console.log(emojiId)
+      const emojiData = { emojiId : emojiCount}
     const options = {
-        method: 'PUT',
+        method: 'PATCH',
         body: JSON.stringify(emojiData),
         headers: {
           'Content-Type': 'application/json',
         },
       };
-      const emojiData = {
-        id: id,
-        reaction: reaction,
-      };
 
-    fetch(`""`, options)
+    
+    fetch(`http://localhost:3000/entry/${id}/reactions`, options)
     .then((r) => r.json())
-    .then(updateReaction)
+    .then((r) => console.log(r))
     .catch(console.warn);
+
 }
 
   emojis.addEventListener('click', (e) => {
-    
     e.preventDefault();
-    registerEmoji(e);
-    
-    let targetEmoji = e.target.closest('a');
-    console.log(targetEmoji)
-    let entryId = e.target.closest('article').id;
-    // change number on the entry page
-    let emojiCount = parseInt(targetEmoji.querySelector('p').textContent);
-    let emojiIndex = targetEmoji.id.slice(-1);
-    targetEmoji.querySelector('p').textContent = String(emojiCount+1)
-    //  send data 
+    handleEmoji(e);
 })
 
 
+//  --------------------- new Entry 
 function addNewEntry() {
   if (
     newEntry.children[0].value != "" &&
@@ -171,7 +167,7 @@ document.querySelector("body").addEventListener("keydown", (e) => {
     addNewEntry();
   }
 });
-
+//      ------  get Entry By Id
 function entryById(e) {
   try {
     e.preventDefault();

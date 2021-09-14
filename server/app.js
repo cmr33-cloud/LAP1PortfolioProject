@@ -34,7 +34,9 @@ app.get('/entry/:id', (req, res) => {
 })
 
 app.all('/entry/:id/reactions', (req, res) => {
-  res.send(entries[req.params.id-1].reactions)
+  let index = req.body[0];
+  entries[req.params.id-1].emojis[index] = req.body[1];
+  res.send({msg: entries[req.params.id-1]})
 })
 
 app.all('/entry/:id/comments', (req, res) => {

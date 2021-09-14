@@ -5,8 +5,29 @@ const entries = [
      body: "Last week I had an unfortunate experience...",
      date: "Fri Sep 10 2021 15:01:58 GMT+0100 (British Summer Time)",
      tags: ["work", "disaster", "misfortune"],
-     emojis:[0,3,5],
-     comments:[]
+     emojis:[0,0,0],
+     comments:[],
+     image: "https://picsum.photos/100"
+},
+{id: 2,
+    title: "My day at the park", 
+    description: "A terrific visit to my local park",
+    body: "Today I went to the local park for a walk. I visited the duck pond and watched a kids football match.",
+    date: "Fri Sep 11 2021 15:01:58 GMT+0100 (British Summer Time)",
+    tags: ["park", "duck", "football"],
+    emojis:[0,0,0],
+    comments:[],
+    image: "https://picsum.photos/100"
+},
+{id: 3,
+    title: "My day at the Aquarium", 
+    description: "A pleasant visit to my town's aquarium",
+    body: "Today I went to the aquarium and saw loads of fish. There were multiple different kinds, and I even saw a shark. It was amazing, 10/10.",
+    date: "Fri Sep 12 2021 15:01:58 GMT+0100 (British Summer Time)",
+    tags: ["aquarium", "fish", "shark"],
+    emojis:[0,0,0],
+    comments:[],
+    image: "https://picsum.photos/100"
 }
 ];
 

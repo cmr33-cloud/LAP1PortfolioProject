@@ -12,7 +12,7 @@ const newCommentInput = document.getElementById("newCommentText");
 const newCommentBtn = document.getElementById("addNewCommentBtn");
 const selectEntry = document.getElementById("timeline");
 
-const emojis = document.getElementById("addEntryEmojis");
+// const emojis = document.getElementById("addEntryEmojis");
 
 //   Event Listeners  -  new entry
 selectEntry.addEventListener("click", entryById);
@@ -27,7 +27,17 @@ searchByKeywordBtn.addEventListener("click", (e) => {
   fetch(url)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
+      let ids = [];
+      for (let a of res) {
+        ids.push(String(a.id));
+      }
+      for (let a of selectEntry.children) {
+        if (ids.includes(a.dataset.value)) {
+          a.hidden = false;
+        } else {
+          a.hidden = true;
+        }
+      }
     });
 });
 
@@ -65,19 +75,26 @@ function getTags(string) {
   return tags;
 }
 async function getanew() {
-  let newgif =
-    "https://api.giphy.com/v1/gifs/search?api_key=TcBkX2mTEeOViaTrLzZIf766tBvbY4Fm&q=";
-  for (let a of searchGyphy.value.split(" ")) {
-    if (searchGyphy.value.split(" ").indexOf(a) != 0) {
-      newgif += "&q" + String(searchGyphy.value.split(" ").indexOf(a));
+  let url;
+  if (searchGyphy.value != "") {
+    let newgif =
+      "https://api.giphy.com/v1/gifs/search?api_key=TcBkX2mTEeOViaTrLzZIf766tBvbY4Fm&q=";
+    for (let a of searchGyphy.value.split(" ")) {
+      if (searchGyphy.value.split(" ").indexOf(a) != 0) {
+        newgif += "&q" + String(searchGyphy.value.split(" ").indexOf(a));
+      }
+      newgif += a.toLowerCase();
     }
-    newgif += a.toLowerCase();
+    await fetch(newgif)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        url = res.data[0].embed_url;
+      });
+  } else {
+    url =
+      "https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg";
   }
-  await fetch(newgif)
-    .then((res) => res.json())
-    .then((res) => {
-      url = res.data[0].url;
-    });
   const options = await {
     method: "POST",
     body: JSON.stringify({
@@ -104,16 +121,47 @@ async function getanew() {
   });
 }
 
-emojis.addEventListener("click", (e) => {
-  e.preventDefault();
-  let targetEmoji = e.target.closest("a");
-  let entryId = e.target.closest("article").id;
-  // change number on the entry page
-  let emojiCount = parseInt(targetEmoji.querySelector("p").textContent);
-  let emojiIndex = targetEmoji.id.slice(-1);
-  targetEmoji.querySelector("p").textContent = String(emojiCount + 1);
-  console.log(targetEmoji);
-});
+//  Even Listener  -  add emoji reactions
+
+// function registerEmoji(e)
+
+// let targetEmoji = e.target.closest('a');
+// console.log(targetEmoji)
+// let entryId = e.target.closest('article').id;
+
+function sendEmojis(id, emoji) {
+  const options = {
+    method: "PUT",
+    body: JSON.stringify(emojiData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const emojiData = {
+    id: id,
+    reaction: reaction,
+  };
+
+  fetch(`""`, options)
+    .then((r) => r.json())
+    .then(updateReaction)
+    .catch(console.warn);
+}
+
+//   emojis.addEventListener('click', (e) => {
+
+//     e.preventDefault();
+//     registerEmoji(e);
+
+//     let targetEmoji = e.target.closest('a');
+//     console.log(targetEmoji)
+//     let entryId = e.target.closest('article').id;
+//     // change number on the entry page
+//     let emojiCount = parseInt(targetEmoji.querySelector('p').textContent);
+//     let emojiIndex = targetEmoji.id.slice(-1);
+//     targetEmoji.querySelector('p').textContent = String(emojiCount+1)
+//     //  send data
+// })
 
 function addNewEntry() {
   if (
@@ -149,73 +197,96 @@ function entryById(e) {
       .then((r) => r.json())
       .then((data) => {
         console.log(data);
-        let entry = `<article class="card" data-value = ${id}>
-            <h3 class="entryTitle">${data["title"]}</h3>
-            <img  class="entryImg" src="" alt="">
-            <div class="entryDescription">${data["description"]}</div>
-            <div class="entryReactions">
-              <div class="entryComments">${data["comments"].length}</div>
-              <div class="entryEmoji">
-                <i class="far fa-smile"></i>
-                <i class="far fa-surprise"></i>
-                <i class="fas fa-angry"></i>
-              </div>
-            </div>
-        </article>`;
-        document
-          .getElementById("displayById")
-          .insertAdjacentHTML("beforeend", entry);
+        let current = document.getElementById("displayById");
+        current.class = "card";
+        current.dataset.value = data.id;
+        let title = document.createElement("h3");
+        if (
+          data.image ==
+          "https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg"
+        ) {
+          image = document.createElement("img");
+          image.height = 150;
+          image.width = 150;
+        } else {
+          image = document.createElement("iframe");
+        }
+        (entryText = document.createElement("div")),
+          (allTheEmojis = document.createElement("div")),
+          (emojiCounts = document.createElement("a")),
+          (comments = document.createElement("div")),
+          (newComment = document.createElement("form"));
+        title.class = "entryTitle";
+        image.class = "entryImage";
+        entryText.class = "entryBody";
+        current.appendChild(title);
+        title.textContent = data.title;
+        current.appendChild(image);
+        image.src = data.image;
+        current.appendChild(entryText);
+        entryText.textContent = data.body;
+        current.appendChild(allTheEmojis);
+        current.appendChild(emojiCounts);
+        current.appendChild(comments);
+        current.appendChild(newComment);
+        // let entry = `<article class="card" data-value = ${id}>
+        //     <h3 class="entryTitle">${data["title"]}</h3>
+        //     <img  class="entryImg" src="${data["image"]}" alt="">
+        //     <div class="entryDescription">${data["description"]}</div>
+        //     <div class="entryReactions">
+        //       <div class="entryComments">${data["comments"].length}</div>
+        //       <div class="entryEmoji">
+        //         <i class="far fa-smile"></i>
+        //         <i class="far fa-surprise"></i>
+        //         <i class="fas fa-angry"></i>
+        //       </div>
+        //     </div>
+        // </article>`;
+        // document
+        //   .getElementById("displayById")
+        //   .insertAdjacentHTML("beforeend", entry);
       });
   } catch (error) {
     console.log(error);
   }
 }
 
-// for(let a of res){
-//   selectEntry.appendChild(document.createElement('section'));
-//   let current = selectEntry.children[0];
-//   let title = document.createElement(h3), image = document.createElement(img), entryText = document.createElement(div),
-//  allTheEmojis = document.createElement(div), emojiCounts = document.createElement(a),
-//  comments = document.createElement(div), newComment = document.createElement(form);
-//   current.appendChild(title); title.textContent = a.title;
-//   current.appendChild(image); image.src = res.image;
-//   current.appendChild(entryText); entryText.textContent = a.entry;
-//   current.appendChild(allTheEmojis); 
-//   current.appendChild(emojiCounts);
-//   current.appendChild(comments);
-//   current.appendChild(newComment);
-//  }
-// <section id="2" class="entryCard">
-    
-//         <h3 class="entryTitle">Entry 2 Title</h3>
-//         <img  class="entryImg" src="https://picsum.photos/100" alt="">
-//         <div class="entryText">Lorem ipsum lorem ipsum</div>
-       
-//         <div  id="allTheEmojis" class="emojis" > 
-//             <text class="far fa-smile"></text>
-//             <text class="far fa-surprise"></text>
-//             <text class="fas fa-angry"></text>
-//    </div><br>
-//         <a  id="emojiCounts" class="emojis" > 
-//             <text class="count">0</text>
-//             <text class="count">3</text>
-//             <text class="count">1</text>
-    
-// </a> 
-//      <div class="comments">
-//          <div class="singleComment">
-//              <p class="commentText"> lorem lorem</p>
-//              <p class="entryDate">17.09.2021</p>>
-//          </div>
-       
-
-
-//         <form id ="newComment">
-//             <input id="newCommentText" type="textarea" placeholder="Your comment">
-//             <input id="addNewCommentBtn" type="submit" value="Add comment">
-
-//         </form>    
-//      </div>
-   
-// </section>
-
+fetch("http://localhost:3000/allentries")
+  .then((r) => r.json())
+  .then((res) => {
+    for (let a of res) {
+      let current = document.createElement("article");
+      selectEntry.appendChild(current);
+      current.class = "card";
+      current.dataset.value = a.id;
+      let title = document.createElement("h3");
+      if (
+        a.image ==
+        "https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg"
+      ) {
+        image = document.createElement("img");
+        image.height = 150;
+        image.width = 150;
+      } else {
+        image = document.createElement("iframe");
+      }
+      (entryText = document.createElement("div")),
+        (allTheEmojis = document.createElement("div")),
+        (emojiCounts = document.createElement("a")),
+        (comments = document.createElement("div")),
+        (newComment = document.createElement("form"));
+      title.class = "entryTitle";
+      image.class = "entryImage";
+      entryText.class = "entryBody";
+      current.appendChild(title);
+      title.textContent = a.title;
+      current.appendChild(image);
+      image.src = a.image;
+      current.appendChild(entryText);
+      entryText.textContent = a.body;
+      current.appendChild(allTheEmojis);
+      current.appendChild(emojiCounts);
+      current.appendChild(comments);
+      current.appendChild(newComment);
+    }
+  });

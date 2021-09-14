@@ -31,9 +31,12 @@ app.post("/", (req, res) => {
 
 app.get('/entry/:id', (req, res) => {
     res.send(entries[req.params.id-1])
-    })
+})
 
-
+app.get('/search', (req, res) => {let results = [];
+for(let a of Object.values(req.query)){for(let b of entries){if(b.tags.includes(a)){results.push(b)}}}
+res.json(results)
+})
 app.listen(port, () => {console.log(`Listening on localhost:${port}...`)})
 
 module.exports = app;

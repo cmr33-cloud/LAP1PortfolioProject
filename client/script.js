@@ -35,7 +35,7 @@ addEntry.style = "color:red";
 //   Event Listeners  -  new entry
 
 function getTags(string) {
-  let keywords = ["a", "an", "i", "is", "in", "it", "of", "the", "to"];
+  let keywords = ["a", "an", "and", "i", "is", "in", "it", "of", "the", "to"];
   let allwords = [];
   for (let a of string.split(" ")) {
     if (
@@ -170,3 +170,52 @@ function entryById(e) {
     console.log(error);
   }
 }
+
+// for(let a of res){
+//   selectEntry.appendChild(document.createElement('section'));
+//   let current = selectEntry.children[0];
+//   let title = document.createElement(h3), image = document.createElement(img), entryText = document.createElement(div),
+//  allTheEmojis = document.createElement(div), emojiCounts = document.createElement(a),
+//  comments = document.createElement(div), newComment = document.createElement(form);
+//   current.appendChild(title); title.textContent = a.title;
+//   current.appendChild(image); image.src = res.image;
+//   current.appendChild(entryText); entryText.textContent = a.entry;
+//   current.appendChild(allTheEmojis); 
+//   current.appendChild(emojiCounts);
+//   current.appendChild(comments);
+//   current.appendChild(newComment);
+//  }
+// <section id="2" class="entryCard">
+    
+//         <h3 class="entryTitle">Entry 2 Title</h3>
+//         <img  class="entryImg" src="https://picsum.photos/100" alt="">
+//         <div class="entryText">Lorem ipsum lorem ipsum</div>
+       
+//         <div  id="allTheEmojis" class="emojis" > 
+//             <text class="far fa-smile"></text>
+//             <text class="far fa-surprise"></text>
+//             <text class="fas fa-angry"></text>
+//    </div><br>
+//         <a  id="emojiCounts" class="emojis" > 
+//             <text class="count">0</text>
+//             <text class="count">3</text>
+//             <text class="count">1</text>
+    
+// </a> 
+//      <div class="comments">
+//          <div class="singleComment">
+//              <p class="commentText"> lorem lorem</p>
+//              <p class="entryDate">17.09.2021</p>>
+//          </div>
+       
+
+
+//         <form id ="newComment">
+//             <input id="newCommentText" type="textarea" placeholder="Your comment">
+//             <input id="addNewCommentBtn" type="submit" value="Add comment">
+
+//         </form>    
+//      </div>
+   
+// </section>
+

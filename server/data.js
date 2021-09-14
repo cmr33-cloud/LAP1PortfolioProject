@@ -7,6 +7,7 @@ const entries = [
      tags: ["work", "disaster", "misfortune"],
      emojis:[0,3,5],
      comments:[]
-}];
+}
+];
 
 module.exports = entries;

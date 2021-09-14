@@ -1,4 +1,4 @@
-const entries = require('../data.js');
+const entries = require('../entries.json');
 
 class Entries {
     constructor(data) {

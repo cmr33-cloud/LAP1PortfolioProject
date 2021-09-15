@@ -3,8 +3,9 @@ const express = require("express"),
   entries = require("./entries.json"),
   Entries = require("./models/entries"),
   app = express(),
-  port = 3000,
-  fs = require('fs');
+  port = process.env.PORT || 80,
+  fs = require('fs'),
+  host = 'portfolio-project-lap-1.herokuapp.com';
 app.use(express.json());
 app.use(cors());
 
@@ -85,14 +86,45 @@ app.all('/entry/:id/reactions', (req, res) => {
 })
 
 
-app.all('/entry/:id/comments', (req, res) => {
-  res.send(entries[req.params.id-1].comments)
+app.get('/entry/:id/comments', (req, res) => {
+ res.send(entries[req.params.id-1].comments)
 })
+
+
+app.patch('/entry/:id/comments', (req, res) => {
+  
+  let entryIndex= req.params.id-1;
+  //   rewrite json 
+  
+  fs.readFile('entries.json', 'utf8', (err, data) => {
+    if(err) {
+        console.log(`Error reading file: ${err}`);
+    } else {
+      
+      const fileData = JSON.parse(fs.readFileSync('entries.json'))
+  
+        //Replace entry in JSON file with new entry withu updated reacts
+      
+        fileData[entryIndex].comments.push(req.body);  
+        const jsonString = JSON.stringify(fileData, null, 2)
+        fs.writeFile('entries.json', jsonString, (err) => {
+            if (err) {
+                console.log(`Error writing file: ${err}`);
+            }
+        });
+        
+        console.log(`Updated comments on entry index ${entryIndex}.`);  
+      }
+    })
+  res.send({msg: entries[req.params.id-1].comments})
+})
+
+
 
 app.get('/search', (req, res) => {let results = [];
 for(let a of Object.values(req.query)){for(let b of entries){if(b.tags.includes(a)){results.push(b)}}}
 res.json(results)
 })
-//app.listen(port, () => {console.log(`Listening on localhost:${port}...`)})
+//app.listen(port, () => {console.log(`Listening on localhost:${port}...`)}) app.listen(process.env.PORT || 5000);
 
 module.exports = app;

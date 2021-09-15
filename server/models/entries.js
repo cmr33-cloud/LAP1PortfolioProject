@@ -9,7 +9,7 @@ class Entries {
         this.image = data.image,
         this.time = data.time,
         this.tags = data.tags,
-        this.date = Date().
+        this.date = Date(),
         this.emojis = [0,0,0],
         this.comments = []
     }

@@ -3,7 +3,6 @@ const express = require("express"),
   entries = require("./entries.json"),
   Entries = require("./models/entries"),
   app = express(),
-  port = process.env.PORT || 80,
   fs = require('fs');
 app.use(express.json());
 app.use(cors());

@@ -1,3 +1,4 @@
-const app = require('./app');
+const app = require('./app'),
+port = process.env.PORT || 80;
 
-app.listen(app.port, () => console.log(`\nExpress departing now from port ${app.port}!\n`));
+app.listen(port, () => console.log(`\nExpress departing now from port ${port}!\n`));

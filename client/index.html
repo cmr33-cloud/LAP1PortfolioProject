@@ -29,7 +29,6 @@
 <section >
     <div class="entryCard">
     <h3>New Entry</h3>
-    <p class="entryDate">13.09.2021</p>
         <form id ="newEntry">
             <input id="newEntryTitle" type="text" placeholder="Title">
             <input id="newEntryText" type="textarea" placeholder="Your entry (max 3000 characters)">
@@ -39,12 +38,14 @@
             <form id="gifForm">
                 <input type="search" id="searchGyphy" placeholder="Search GIPHY">
                 <div id="gif-form-btns">
-                    <input id="gifPreviewBtn" type="submit" value="Preview">
-                    <input id="addGiphy" type="button" value="Add">
+                    <input id="gifPreviewBtn" type="submit" value="Preview Gif">
+                    <input id="addGiphy" type="button" value="Add Gif">
+                    <text id = "gifAdded" style="color:red" hidden = true>Gif added!</text>
                 </div>
             </form>
+            <div id = "preview"></div>
             <!-- ----------------------->
-            <input id="addNewEntryBtn" type="submit" value="Add entry">
+            <input id="addNewEntryBtn" type="submit" value="Submit entry">
         </form>
 
         <text id = "addEntry" hidden=true>Entry successfully added!</text>
@@ -98,43 +99,43 @@
         
 </section>
 
-<!--  ------ adding comments and ractions ----->
-<article id="1" class="entryCard">
-    
+<!--  ------ adding comments and ractions ---->
+<article id="1" class="dispalyById" hidden=true >
+        
         <h3 class="entryTitle">Entry 2 Title</h3>
         <img  class="entryImg" src="https://picsum.photos/100" alt="">
         <div class="entryText">Lorem ipsum lorem ipsum</div>
-          <div id="addEntryEmojis">
+        <div id="addEntryEmojis">
             <a  id="emoji1" name="0" class="emojis" > 
                 <i class="far fa-smile"></i>
                 <p class="count">0</p>
             </a>
-            <a  id="emoji2" name="1" class="emojis" > 
+            <a  href="" id="emoji2" name="1" class="emojis" > 
                 <i class="far fa-smile"></i>
                 <p class="count">0</p>
             </a>
-            <a  id="emoji3" name ="2" class="emojis" > 
+            <a   href=""> 
                 <i class="far fa-smile"></i>
                 <p class="count">0</p>
             </a>
-
+            
             
         </div>
-     <div class="comments">
-         <div class="singleComment">
-             <p class="commentText"> lorem lorem</p>
-             <p class="entryDate">17.09.2021</p>>
-         </div>
-       
-
-
-        <form id ="newComment">
-            <input id="newCommentText" type="textarea" placeholder="Your comment">
-            <input id="addNewCommentBtn" type="submit" value="Add comment">
-
-        </form>    
-     </div>
-   
+        <div class="comments">
+            <div class="singleComment">
+                <p class="commentText"> lorem lorem</p>
+                <p class="entryDate">17.09.2021</p>>
+            </div>
+            
+            
+            
+            <form id ="newComment">
+                <input id="newCommentText" type="textarea" placeholder="Your comment">
+                <input id="addNewCommentBtn" type="submit" value="Add comment">
+                
+            </form>    
+        </div>
+        
     </article>
 
 <!--  --------------  footer with scroller -------  -->

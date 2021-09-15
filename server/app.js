@@ -1,7 +1,7 @@
 const express = require("express"),
   cors = require("cors"),
   entries = require("./entries.json"),
-  Entries = require("./models/entries")
+  Entries = require("./models/entries"),
   app = express(),
   port = 3000,
   fs = require('fs');
@@ -53,10 +53,37 @@ app.get('/entry/:id', (req, res) => {
 })
 
 app.all('/entry/:id/reactions', (req, res) => {
-  let index = req.body[0];
-  entries[req.params.id-1].emojis[index] = req.body[1];
-  res.send({msg: entries[req.params.id-1]})
+  let emojiIndex = req.body[0]-1;
+
+  let entryIndex= req.params.id-1;
+  let newEmojiCount = req.body[1];
+  entries[entryIndex].emojis[emojiIndex] = newEmojiCount;
+  //   rewrite json 
+  
+  fs.readFile('entries.json', 'utf8', (err, data) => {
+    if(err) {
+        console.log(`Error reading file: ${err}`);
+    } else {
+      
+      const fileData = JSON.parse(fs.readFileSync('entries.json'))
+  
+        //Replace entry in JSON file with new entry withu updated reacts
+      
+        fileData[entryIndex].emojis[emojiIndex] = newEmojiCount;  
+        const jsonString = JSON.stringify(fileData, null, 2)
+        fs.writeFile('entries.json', jsonString, (err) => {
+            if (err) {
+                console.log(`Error writing file: ${err}`);
+            }
+        });
+        
+        console.log(`Updated number of reactions for entry index ${entryIndex}.`);  
+      }
+    })
+
+  res.send(entries[req.params.id-1].emojis)
 })
+
 
 app.all('/entry/:id/comments', (req, res) => {
   res.send(entries[req.params.id-1].comments)

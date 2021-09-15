@@ -1,3 +1,5 @@
+
+
 // Elements     - HTML
 const timeline = document.getElementById("timeline");
 const newEntryBtn = document.getElementById("addNewEntryBtn");
@@ -15,7 +17,7 @@ const selectEntry = document.getElementById("timeline");
 const emojis = document.getElementById("addEntryEmojis");
 
 //   Event Listeners  -  new entry
-electEntry.addEventListener("click", (e) => {
+selectEntry.addEventListener("click", (e) => {
   e.preventDefault();
   const target = e.target;
   
@@ -134,38 +136,42 @@ async function getanew() {
 
 // --  add emoji reactions
 
-function handleEmoji(e){
-let targetEmoji = e.target.closest('a');
-let entry = e.target.closest('article');
-let entryId = entry.dataset.value;
-    // change number on the entry page
-    let emojiCount = parseInt(targetEmoji.querySelector('p').textContent)+1;
-    targetEmoji.querySelector('p').textContent = String(emojiCount)
+function handleEmoji(e) {
+  let targetEmoji = e.target.closest('a');
+  let entry = e.target.closest('article');
+  let entryId = entry.dataset.value;  
+  console.log(entryId)
+  // change number on the entry page
+  let emojiCount = parseInt(targetEmoji.querySelector('p').textContent) + 1;
+  targetEmoji.querySelector('p').textContent = String(emojiCount)
 
-//
-sendEmoji(entryId, parseInt(targetEmoji.name), emojiCount)
+  //
+  sendEmoji(entryId, parseInt(targetEmoji.name), emojiCount)
 }
 
-function sendEmoji(id, emojiId, emojiCount){
-    const options = {
-        method: 'PATCH',
-        body: JSON.stringify([emojiId,emojiCount]),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-    
-    fetch(`http://localhost:3000/entry/${id}/reactions`, options)
+function sendEmoji(id, emojiId, emojiCount) {
+  
+
+  const options = {
+    method: 'PATCH',
+    body: JSON.stringify([emojiId, emojiCount]),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  console.log(options);
+
+  fetch(`http://localhost:3000/entry/${id}/reactions`, options)
     .then((r) => r.json())
     .then((r) => console.log(r))
     .catch(console.warn);
 
 }
 
-   emojis.addEventListener('click', (e) => {
-     e.preventDefault();
-     handleEmoji(e);
- })
+emojis.addEventListener('click', (e) => {
+  e.preventDefault();
+  handleEmoji(e);
+})
 
 //  --------------------- new Entry 
 function addNewEntry() {
@@ -191,17 +197,17 @@ document.querySelector("body").addEventListener("keydown", (e) => {
     addNewEntry();
   }
 });
-//      ------  get Entry By Id
+//      ------  get Entry By Id     render
 function entryById(e) {
   try {
     e.preventDefault();
     let id = e.target.closest("article").dataset.value;
-    console.log(id);
+   
     selectEntry.style.display = "none";
     fetch(`http://localhost:3000/entry/${id}`)
       .then((r) => r.json())
       .then((data) => {
-        console.log(data);
+        
         let current = document.getElementById("displayById");
         current.class = "card";
         current.dataset.value = data.id;
@@ -220,7 +226,6 @@ function entryById(e) {
           (allTheEmojis = document.createElement("div")),
           (emojiCounts = document.createElement("a")),
           (comments = document.createElement("div")),
-          (newComment = document.createElement("form"));
         title.class = "entryTitle";
         image.class = "entryImage";
         entryText.class = "entryBody";
@@ -232,8 +237,17 @@ function entryById(e) {
         entryText.textContent = data.body;
         current.appendChild(allTheEmojis);
         current.appendChild(emojiCounts);
+
+
+        renderEmoji(allTheEmojis, data)
+        allTheEmojis.className += "emojiBox emoji"
+
+
         current.appendChild(comments);
-        current.appendChild(newComment);
+        renderComments(comments,data)
+       
+
+
         // let entry = `<article class="card" data-value = ${id}>
         //     <h3 class="entryTitle">${data["title"]}</h3>
         //     <img  class="entryImg" src="${data["image"]}" alt="">
@@ -255,6 +269,7 @@ function entryById(e) {
     console.log(error);
   }
 }
+//   ----   timeline render
 fetch("http://localhost:3000/allentries")
   .then((r) => r.json())
   .then((res) => {
@@ -277,8 +292,8 @@ fetch("http://localhost:3000/allentries")
       (entryText = document.createElement("div")),
         (allTheEmojis = document.createElement("div")),
         (emojiCounts = document.createElement("a")),
-        (comments = document.createElement("div")),
-        (newComment = document.createElement("form"));
+        (commentsCount = document.createElement("div")),
+      
       title.class = "entryTitle";
       image.class = "entryImage";
       entryText.class = "entryBody";
@@ -289,8 +304,73 @@ fetch("http://localhost:3000/allentries")
       current.appendChild(entryText);
       entryText.textContent = a.body;
       current.appendChild(allTheEmojis);
-      current.appendChild(emojiCounts);
-      current.appendChild(comments);
-      current.appendChild(newComment);
+      
+      renderEmoji(allTheEmojis, a)
+      allTheEmojis.className += "emojiBox"
+
+      //current.appendChild(emojiCounts);
+      current.appendChild(commentsCount);
+      commentsCount.textContent = `Comments:  ${a.comments.length}`
+
+      
     }
   });
+
+
+//  ------------  render emoji box-------------
+
+function renderEmoji(element, data) {
+  const emojiIcons = ["far fa-smile", "far fa-angry", "far fa-surprise"]
+
+  for (i = 0; i < data.emojis.length; i++) {
+    clickableEmoji = document.createElement('a')
+    clickableEmoji.href = ""
+    clickableEmoji.name = i+1
+    clickableEmoji.className += "emoji"
+    icon = document.createElement('i')
+    icon.className += emojiIcons[i]
+
+
+    emojiCount = document.createElement('p')
+    emojiCount.textContent = data.emojis[i]
+    emojiCount.className += "emoji"
+
+    clickableEmoji.appendChild(icon)
+    clickableEmoji.appendChild(emojiCount)
+    element.appendChild(clickableEmoji)
+  }
+}
+
+//  ----------------  render comment box  
+function renderComments(element,data) {
+  //  render existing comments
+  console.log(data.comments)
+  for (i = 0; i < data.comments.length; i++) {
+    const singleCommentBox = document.createElement('div');
+    const commentDate = document.createElement('p');
+    const commentText = document.createElement('p');
+
+    commentDate.textContent = data.comments[i].date;
+    commentText.textContent = data.comments[i].comment;
+  
+    singleCommentBox.appendChild(commentDate)
+    singleCommentBox.appendChild(commentText)
+    element.appendChild(singleCommentBox)
+  }
+    
+    // new comment box
+    const newCommentBox = document.createElement('form');
+    const newCommentInput = document.createElement('input');
+    newCommentInput.type="textarea";
+    newCommentInput.placeholder="Your comment";
+    submitNewComment = document.createElement('input');
+    submitNewComment.type="submit"
+    submitNewComment.value="Add comment"
+    
+
+    newCommentBox.appendChild(newCommentInput)
+    newCommentBox.appendChild(submitNewComment)
+
+    element.appendChild(newCommentBox)
+   
+}

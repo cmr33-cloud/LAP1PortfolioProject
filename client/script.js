@@ -330,7 +330,7 @@ console.log(entryId, commentText);
 
 
 //   ------------------   timeline render
-fetch(`https://${host}/allentries`)
+fetch(`https://${host}/allentries`, {mode: 'no-cors'})
   .then((r) => r.json())
   .then((res) => {
     for (let a of res) {

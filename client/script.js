@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-=======
-const host = "portfolio-project-lap-1.herokuapp.com";
-const port = 80;
->>>>>>> 9393a9fcde4703da07a7c87484233d3b05897421
 
 // Elements     - HTML
+const host = "portfolio-project-lap-1.herokuapp.com";
 const timeline = document.getElementById("timeline");
 const newEntryBtn = document.getElementById("addNewEntryBtn");
 const newEntryForm = document.getElementById("newEntry");

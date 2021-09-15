@@ -1,12 +1,18 @@
 const express = require("express"),
   cors = require("cors"),
+  corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ },
   entries = require("./entries.json"),
   Entries = require("./models/entries"),
   app = express(),
   fs = require('fs');
 app.use(express.json());
-app.use(cors());
 
+
+app.use(cors(corsOptions))
 const entryRoutes = require("./controllers/entries");
 app.use("/entries", entryRoutes);
 

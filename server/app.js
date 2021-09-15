@@ -4,8 +4,7 @@ const express = require("express"),
   Entries = require("./models/entries"),
   app = express(),
   port = process.env.PORT || 80,
-  fs = require('fs'),
-  host = 'portfolio-project-lap-1.herokuapp.com';
+  fs = require('fs');
 app.use(express.json());
 app.use(cors());
 
@@ -124,7 +123,7 @@ app.patch('/entry/:id/comments', (req, res) => {
 app.get('/search', (req, res) => {let results = [];
 for(let a of Object.values(req.query)){for(let b of entries){if(b.tags.includes(a)){results.push(b)}}}
 res.json(results)
-})
+});
 //app.listen(port, () => {console.log(`Listening on localhost:${port}...`)}) app.listen(process.env.PORT || 5000);
 
 module.exports = app;

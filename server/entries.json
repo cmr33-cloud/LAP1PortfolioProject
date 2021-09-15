@@ -11,11 +11,16 @@
     ],
     "date": "Tue Sep 14 2021 16:35:52 GMT+0100 (British Summer Time)",
     "emojis": [
-      0,
-      0,
+      9,
+      3,
       0
     ],
-    "comments": []
+    "comments": [
+      {
+        "date": "Fri Sep 10 2021 18:13:00 GMT+0100 (British Summer Time)",
+        "comment": "great!"
+      }
+    ]
   },
   {
     "id": 2,
@@ -29,8 +34,35 @@
     ],
     "date": "Tue Sep 14 2021 17:37:17 GMT+0100 (British Summer Time)",
     "emojis": [
-      0,
-      0,
+      2,
+      3,
+      0
+    ],
+    "comments": [
+      {
+        "date": "Fri Sep 10 2021 15:01:58 GMT+0100 (British Summer Time)",
+        "comment": "agree"
+      },
+      {
+        "date": "Fri Sep 10 2021 15:01:58 GMT+0100 (British Summer Time)",
+        "comment": "hahaha"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "cats are cute!",
+    "body": "everybody loves cats",
+    "image": "https://giphy.com/embed/3o6Zt481isNVuQI1l6",
+    "tags": [
+      "cats",
+      "loves",
+      "everybody"
+    ],
+    "date": "Wed Sep 15 2021 00:53:08 GMT+0100 (British Summer Time)",
+    "emojis": [
+      1,
+      1,
       0
     ],
     "comments": []

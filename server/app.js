@@ -19,12 +19,17 @@ app.post("/newentry", (req, res) => { //handles post requests and then writes da
   const data = req.body;
   const newEntry = Entries.createEntry(data);
   const fileData = JSON.parse(fs.readFileSync('entries.json'))
+  if (data.title !== 'This is an entry'){
   fileData.push(newEntry)
   fs.writeFileSync('entries.json', JSON.stringify(fileData, null, 2), (err) => {
     if (err) {
         throw err;
     }
 })
+  }
+  else {
+    console.log('test entry detected')
+  }
 res.status(201).send(newEntry);
 })
 
@@ -38,7 +43,13 @@ app.post("/", (req, res) => {
 });
 
 app.get('/entry/:id', (req, res) => {
+  if ((req.params.id-1)<=entries.length) {
+    
     res.send(entries[req.params.id-1])
+  }
+  else {
+    res.status(404).send('Not found')
+  }
 })
 
 app.all('/entry/:id/reactions', (req, res) => {
@@ -55,6 +66,6 @@ app.get('/search', (req, res) => {let results = [];
 for(let a of Object.values(req.query)){for(let b of entries){if(b.tags.includes(a)){results.push(b)}}}
 res.json(results)
 })
-app.listen(port, () => {console.log(`Listening on localhost:${port}...`)})
+//app.listen(port, () => {console.log(`Listening on localhost:${port}...`)})
 
 module.exports = app;

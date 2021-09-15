@@ -92,7 +92,7 @@ async function getanew() {
   if (gifadded) {url = yourgif;
   } else {
     url =
-      `httpss://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`;
+      `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`;
   }
   const options = await {
     method: "POST",
@@ -229,7 +229,7 @@ function entryById(e) {
         let title = document.createElement("h3");
         if (
           data.image ==
-          `httpss://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
+          `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
         ) {
           image = document.createElement("img");
           image.height = 150;
@@ -347,7 +347,7 @@ fetch(`https://${host}/allentries`)
       date.textContent = a.date
       if (
         a.image ==
-        `httpss://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
+        `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
       ) {
         image = document.createElement("img");
         image.height = 150;

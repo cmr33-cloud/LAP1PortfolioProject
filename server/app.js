@@ -1,7 +1,7 @@
 const express = require("express"),
   cors = require("cors"),
   entries = require("./entries.json"),
-  Entries = require("./models/entries")
+  Entries = require("./models/entries"),
   app = express(),
   port = 3000,
   fs = require('fs');

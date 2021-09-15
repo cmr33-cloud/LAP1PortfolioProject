@@ -96,6 +96,7 @@ async function getanew() {
   }
   const options = await {
     method: "POST",
+    mode: 'cors',
     body: JSON.stringify({
       title: newEntry.children[0].value,
       body: newEntry.children[1].value,
@@ -170,6 +171,7 @@ function sendEmoji(id, emojiId, emojiCount) {
 
   const options = {
     method: 'PATCH',
+    mode: 'cors',
     body: JSON.stringify([emojiId, emojiCount]),
     headers: {
       'Content-Type': 'application/json',
@@ -305,6 +307,7 @@ function addNewComment(entryId,commentText) {
 console.log(entryId, commentText);
   const options = {
     method: "PATCH",
+    mode: 'cors',
     body: JSON.stringify({
       date : Date(),
       comment: commentText

@@ -1,4 +1,5 @@
-
+const host = "portfolio-project-lap-1.herokuapp.com";
+const port = 80;
 
 // Elements     - HTML
 const timeline = document.getElementById("timeline");
@@ -33,7 +34,7 @@ timeline.addEventListener("click", (e) => {
 searchByKeywordBtn.addEventListener("click", (e) => {
   e.preventDefault();
   let searchers = searchByKeywordInput.value.split(" ");
-  let url = "http://localhost:3000/search?word=" + searchers[0].toLowerCase();
+  let url = `http://${host}/search?word=` + searchers[0].toLowerCase();
   for (let i = 1; i < searchers.length; i++) {
     url += "&word" + String(i) + "=" + searchers[i].toLowerCase();
   }
@@ -92,7 +93,7 @@ async function getanew() {
   if (gifadded) {url = yourgif;
   } else {
     url =
-      "https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg";
+      `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`;
   }
   const options = await {
     method: "POST",
@@ -110,7 +111,7 @@ gifadded = false;
 while (preview.children.length > 0) {
   preview.removeChild(preview.lastChild);
 };
-  await fetch("http://localhost:3000/newentry", options).then((res) => {
+  await fetch(`http://${host}/newentry`, options).then((res) => {
     console.log(res);
     addEntry.hidden = false;
     Object.values(newEntry.children).forEach((element) => {
@@ -136,7 +137,7 @@ gifPreviewBtn.addEventListener("click", (e) => {
   if (searchGyphy.value == "") {
     alert("No gif selected!");
   } else {
-    fetch("https://api.giphy.com/v1/gifs/search?api_key=TcBkX2mTEeOViaTrLzZIf766tBvbY4Fm&q=" + searchGyphy.value.replaceAll(" ", "+").toLowerCase())
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=TcBkX2mTEeOViaTrLzZIf766tBvbY4Fm&q=` + searchGyphy.value.replaceAll(" ", "+").toLowerCase())
     .then(res=>res.json())
     .then((res) => {
       while (preview.children.length > 0) {
@@ -177,7 +178,7 @@ function sendEmoji(id, emojiId, emojiCount) {
   };
   console.log(options);
 
-  fetch(`http://localhost:3000/entry/${id}/reactions`, options)
+  fetch(`http://${host}/entry/${id}/reactions`, options)
     .then((r) => r.json())
     //.then((r) => console.log(r))
     .catch(console.warn);
@@ -219,7 +220,7 @@ function entryById(e) {
     let entryId = e.target.closest("article").dataset.value;
    
     timeline.style.display = "none";
-    fetch(`http://localhost:3000/entry/${entryId}`)
+    fetch(`http://${host}/entry/${entryId}`)
       .then((r) => r.json())
       .then((data) => {
         
@@ -229,7 +230,7 @@ function entryById(e) {
         let title = document.createElement("h3");
         if (
           data.image ==
-          "https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg"
+          `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
         ) {
           image = document.createElement("img");
           image.height = 150;
@@ -301,7 +302,7 @@ function addNewComment(entryId,commentText) {
     },
   };
 
-   fetch(`http://localhost:3000/entry/${entryId}/comments`, options)
+   fetch(`http://${host}/entry/${entryId}/comments`, options)
    .then((r) => r.json())
     .then((r) => console.log(r))
     .catch(console.warn);
@@ -317,7 +318,7 @@ function addNewComment(entryId,commentText) {
 
 
 //   ------------------   timeline render
-fetch("http://localhost:3000/allentries")
+fetch(`http://${host}/allentries`)
   .then((r) => r.json())
   .then((res) => {
     for (let a of res) {
@@ -328,7 +329,7 @@ fetch("http://localhost:3000/allentries")
       let title = document.createElement("h3");
       if (
         a.image ==
-        "https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg"
+        `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
       ) {
         image = document.createElement("img");
         image.height = 150;

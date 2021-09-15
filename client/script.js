@@ -288,7 +288,7 @@ function entryById(e) {
             commentInput.value.length <= 1000
             ) {
               addNewComment(entryId, commentInput.value);
-              window.location.reload(true);
+              //window.location.reload(true);
 
             } else {
               alert("Please say something nice.");
@@ -302,7 +302,7 @@ function entryById(e) {
 }
 // ----------------
 function addNewComment(entryId,commentText) {
-
+console.log(entryId, commentText);
   const options = {
     method: "PATCH",
     body: JSON.stringify({

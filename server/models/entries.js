@@ -13,7 +13,7 @@ class Entries {
         this.emojis = [0,0,0]
         this.comments = []
     }
-    static getAll(){}
+    
     static createEntry(data){
         const newID = entries.length + 1;
         const newEntry = new Entries(
@@ -23,8 +23,6 @@ class Entries {
         entries.push(newEntry);
         return newEntry;
     }
-    static getById(){}
-    static search(){}
 }
 
 module.exports = Entries;

@@ -12,12 +12,11 @@ const searchGiphy = document.getElementById("searchGyphy");
 // Elements  - entry with ID
 const newCommentInput = document.getElementById("newCommentText");
 const newCommentBtn = document.getElementById("addNewCommentBtn");
-const selectEntry = document.getElementById("timeline");
 
 const emojis = document.getElementById("addEntryEmojis");
 
 //   Event Listeners  -  new entry
-selectEntry.addEventListener("click", (e) => {
+timeline.addEventListener("click", (e) => {
   e.preventDefault();
   const target = e.target;
   
@@ -44,7 +43,7 @@ searchByKeywordBtn.addEventListener("click", (e) => {
       for (let a of res) {
         ids.push(String(a.id));
       }
-      for (let a of selectEntry.children) {
+      for (let a of timeline.children) {
         if (ids.includes(a.dataset.value)) {
           a.hidden = false;
         } else {
@@ -163,7 +162,7 @@ function sendEmoji(id, emojiId, emojiCount) {
 
   fetch(`http://localhost:3000/entry/${id}/reactions`, options)
     .then((r) => r.json())
-    .then((r) => console.log(r))
+    //.then((r) => console.log(r))
     .catch(console.warn);
 
 }
@@ -201,10 +200,10 @@ document.querySelector("body").addEventListener("keydown", (e) => {
 function entryById(e) {
   try {
     e.preventDefault();
-    let id = e.target.closest("article").dataset.value;
+    let entryId = e.target.closest("article").dataset.value;
    
-    selectEntry.style.display = "none";
-    fetch(`http://localhost:3000/entry/${id}`)
+    timeline.style.display = "none";
+    fetch(`http://localhost:3000/entry/${entryId}`)
       .then((r) => r.json())
       .then((data) => {
         
@@ -247,35 +246,67 @@ function entryById(e) {
         renderComments(comments,data)
        
 
+        //   ----  new comment listener
+        
+        const commentInput =document.getElementById('newCommentInput')
+        console.log(commentInput)
+        const submitNewCommentBtn = document.getElementById('submitNewCommentBtn')
+        console.log(submitNewCommentBtn)
+        submitNewCommentBtn.addEventListener("click", (e) => {
+          e.preventDefault(); 
 
-        // let entry = `<article class="card" data-value = ${id}>
-        //     <h3 class="entryTitle">${data["title"]}</h3>
-        //     <img  class="entryImg" src="${data["image"]}" alt="">
-        //     <div class="entryDescription">${data["description"]}</div>
-        //     <div class="entryReactions">
-        //       <div class="entryComments">${data["comments"].length}</div>
-        //       <div class="entryEmoji">
-        //         <i class="far fa-smile"></i>
-        //         <i class="far fa-surprise"></i>
-        //         <i class="fas fa-angry"></i>
-        //       </div>
-        //     </div>
-        // </article>`;
-        // document
-        //   .getElementById("displayById")
-        //   .insertAdjacentHTML("beforeend", entry);
-      });
-  } catch (error) {
+          
+          if (
+            commentInput.value != "" &&
+            commentInput.value.length <= 1000
+            ) {
+              addNewComment(entryId, commentInput.value);
+            } else {
+              alert("Please say something nice.");
+            }
+          });
+        });
+        }
+   catch (error) {
     console.log(error);
   }
 }
-//   ----   timeline render
+// ----------------
+function addNewComment(entryId,commentText) {
+
+  const options = {
+    method: "PATCH",
+    body: JSON.stringify({
+      date : Date(),
+      comment: commentText
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+   fetch(`http://localhost:3000/entry/${entryId}/comments`, options)
+   .then((r) => r.json())
+    .then((r) => console.log(r))
+    .catch(console.warn);
+}
+ 
+
+
+
+
+
+
+
+
+
+//   ------------------   timeline render
 fetch("http://localhost:3000/allentries")
   .then((r) => r.json())
   .then((res) => {
     for (let a of res) {
       let current = document.createElement("article");
-      selectEntry.appendChild(current);
+      timeline.appendChild(current);
       current.class = "card";
       current.dataset.value = a.id;
       let title = document.createElement("h3");
@@ -363,9 +394,11 @@ function renderComments(element,data) {
     const newCommentInput = document.createElement('input');
     newCommentInput.type="textarea";
     newCommentInput.placeholder="Your comment";
+    newCommentInput.id="newCommentInput"
     submitNewComment = document.createElement('input');
     submitNewComment.type="submit"
     submitNewComment.value="Add comment"
+    submitNewComment.id="submitNewCommentBtn"
     
 
     newCommentBox.appendChild(newCommentInput)

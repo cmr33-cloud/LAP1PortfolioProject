@@ -56,8 +56,13 @@ describe('API server', () => {
                 image: 'https://giphy.com/embed/mf8UbIDew7e8g',
                 tags: [ 'world', 'people', 'thank' ],
                 date: 'Tue Sep 14 2021 16:35:52 GMT+0100 (British Summer Time)',
-                emojis: [ 0, 0, 0 ],
-                comments: []
+                emojis: [ 9, 3, 0 ],
+                comments: [
+                  {
+                    date: 'Fri Sep 10 2021 18:13:00 GMT+0100 (British Summer Time)',
+                    comment: 'great!'
+                  }
+                ]
               }, done);
     });
 
@@ -77,14 +82,19 @@ describe('API server', () => {
         request(api)
         .get('/entry/1/reactions')
         .expect(200)
-        .expect({"msg":{"id":1,"title":"People are nice and stuff","body":"I'd like to thank the people of the world","image":"https://giphy.com/embed/mf8UbIDew7e8g","tags":["world","people","thank"],"date":"Tue Sep 14 2021 16:35:52 GMT+0100 (British Summer Time)","emojis":[0,0,0],"comments":[]}},done)
-    })
+        .expect([ 9, 3, 0 ],done)
+        })
 
     it('retrieves the comment array by id on path /entry/:id/comments', (done) => {
         request(api)
         .get('/entry/1/comments')
         .expect(200)
-        .expect([], done)
+        .expect([
+            {
+              date: 'Fri Sep 10 2021 18:13:00 GMT+0100 (British Summer Time)',
+              comment: 'great!'
+            }
+          ], done)
 
 })
 })

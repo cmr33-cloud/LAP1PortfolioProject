@@ -2,13 +2,13 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "engines": {
     "node": "14.x"
   },
   "scripts": {
-    "test": "jest --watchAll",
-    "start": "node server/app.js",
+    "test": "jest ./server/test/app.test.js",
+    "start": "node server/index.js",
     "coverage": "jest --coverage --silent"
   },
   "author": "",

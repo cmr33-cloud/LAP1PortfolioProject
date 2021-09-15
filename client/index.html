@@ -32,19 +32,21 @@
     <p class="entryDate">13.09.2021</p>
         <form id ="newEntry">
             <input id="newEntryTitle" type="text" placeholder="Title">
-            <input id="newEntryText" type="textarea" placeholder="Your entry (max 5000 characters)">
+            <input id="newEntryText" type="textarea" placeholder="Your entry (max 3000 characters)">
         
             <!-- -- add GIF ------- -->
         
             <form id="gifForm">
                 <input type="search" id="searchGyphy" placeholder="Search GIPHY">
                 <div id="gif-form-btns">
-                    <input id="gifPreviewBtn" type="submit" value="Preview">
-                    <input id="addGiphy" type="button" value="Add">
+                    <input id="gifPreviewBtn" type="submit" value="Preview Gif">
+                    <input id="addGiphy" type="button" value="Add Gif">
+                    <text id = "gifAdded" style="color:red" hidden = true>Gif added!</text>
                 </div>
             </form>
+            <div id = "preview"></div>
             <!-- ----------------------->
-            <input id="addNewEntryBtn" type="submit" value="Add entry">
+            <input id="addNewEntryBtn" type="submit" value="Submit entry">
         </form>
 
         <text id = "addEntry" hidden=true>Entry successfully added!</text>

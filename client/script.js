@@ -13,6 +13,7 @@ const newCommentBtn = document.getElementById("addNewCommentBtn");
 const selectEntry = document.getElementById("timeline");
 
 const emojis = document.getElementById("addEntryEmojis");
+let gifadded;
 
 //   Event Listeners  -  new entry
 selectEntry.addEventListener("click", entryById);
@@ -76,21 +77,7 @@ function getTags(string) {
 }
 async function getanew() {
   let url;
-  if (searchGyphy.value != "") {
-    let newgif =
-      "https://api.giphy.com/v1/gifs/search?api_key=TcBkX2mTEeOViaTrLzZIf766tBvbY4Fm&q=";
-    for (let a of searchGyphy.value.split(" ")) {
-      if (searchGyphy.value.split(" ").indexOf(a) != 0) {
-        newgif += "&q" + String(searchGyphy.value.split(" ").indexOf(a));
-      }
-      newgif += a.toLowerCase();
-    }
-    await fetch(newgif)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        url = res.data[0].embed_url;
-      });
+  if (gifadded) {url = yourgif;
   } else {
     url =
       "https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg";
@@ -107,7 +94,10 @@ async function getanew() {
       "Content-Type": "application/json",
     },
   };
-
+gifadded = false;
+while (preview.children.length > 0) {
+  preview.removeChild(preview.lastChild);
+};
   await fetch("http://localhost:3000/newentry", options).then((res) => {
     console.log(res);
     addEntry.hidden = false;
@@ -121,58 +111,82 @@ async function getanew() {
   });
 }
 
+addGiphyBtn.addEventListener("click", (e)=>{e.preventDefault(); 
+if(preview.children.length>0){gifadded = true; yourgif = preview.children[0].src; gifAdded.hidden = false; 
+  setTimeout(function () {
+    gifAdded.hidden = true;
+  }, 3000);}
+else {alert("No gif selected!")}
+})
+
+gifPreviewBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (searchGyphy.value == "") {
+    alert("No gif selected!");
+  } else {
+    fetch("https://api.giphy.com/v1/gifs/search?api_key=TcBkX2mTEeOViaTrLzZIf766tBvbY4Fm&q=" + searchGyphy.value.replaceAll(" ", "+").toLowerCase())
+    .then(res=>res.json())
+    .then((res) => {
+      while (preview.children.length > 0) {
+        preview.removeChild(preview.lastChild);
+      }
+      let preev = document.createElement("iframe");
+      preev.src = res.data[0].embed_url;
+      preview.appendChild(preev);
+    });
+    gifadded=false;
+  }
+});
+
 // --  add emoji reactions
 
-function handleEmoji(e){
-let targetEmoji = e.target.closest('a');
-console.log(targetEmoji);
-let entry = e.target.closest('article');
-let entryId = entry.id;
-    // change number on the entry page
-    let emojiCount = parseInt(targetEmoji.querySelector('p').textContent)+1;
-    targetEmoji.querySelector('p').textContent = String(emojiCount)
+function handleEmoji(e) {
+  let targetEmoji = e.target.closest("a");
+  console.log(targetEmoji);
+  let entry = e.target.closest("article");
+  let entryId = entry.id;
+  // change number on the entry page
+  let emojiCount = parseInt(targetEmoji.querySelector("p").textContent) + 1;
+  targetEmoji.querySelector("p").textContent = String(emojiCount);
 
-//
-sendEmoji(entryId, parseInt(targetEmoji.name), emojiCount)
+  //
+  sendEmoji(entryId, parseInt(targetEmoji.name), emojiCount);
 }
 
-function sendEmoji(id, emojiId, emojiCount){
-    console.log(emojiId)
-      
-    function emojiData(emId, emCount){
-      if (emId ==='emoji1') {
-        return [emojiId, emCount]
-      } 
-      else if (emId ==='emoji2') {
-        return [emojiId, emCount]
-      } else {
-      
-        return [emojiId, emCount]
-      }
-       }
-    console.log(emojiData(emojiId,emojiCount))
-    const options = {
-        method: 'PATCH',
-        body: JSON.stringify(emojiData(emojiId,emojiCount)),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-console.log(options);
-    
-    fetch(`http://localhost:3000/entry/${id}/reactions`, options)
+function sendEmoji(id, emojiId, emojiCount) {
+  console.log(emojiId);
+
+  function emojiData(emId, emCount) {
+    if (emId === "emoji1") {
+      return [emojiId, emCount];
+    } else if (emId === "emoji2") {
+      return [emojiId, emCount];
+    } else {
+      return [emojiId, emCount];
+    }
+  }
+  console.log(emojiData(emojiId, emojiCount));
+  const options = {
+    method: "PATCH",
+    body: JSON.stringify(emojiData(emojiId, emojiCount)),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  console.log(options);
+
+  fetch(`http://localhost:3000/entry/${id}/reactions`, options)
     .then((r) => r.json())
     .then((r) => console.log(r))
     .catch(console.warn);
-
 }
 
-   emojis.addEventListener('click', (e) => {
-     e.preventDefault();
-     handleEmoji(e);
- })
+emojis.addEventListener("click", (e) => {
+  e.preventDefault();
+  handleEmoji(e);
+});
 
-//  --------------------- new Entry 
+//  --------------------- new Entry
 function addNewEntry() {
   if (
     newEntry.children[0].value != "" &&
@@ -180,8 +194,8 @@ function addNewEntry() {
     newEntry.children[1].value.length <= 3000
   ) {
     getanew();
-  } else {
-    alert("Please fill out the form.");
+  } else if (newEntry.children[1].value.length > 3000){alert("Entry is too long!")} else {
+    alert("Please add a title and description.");
   }
 }
 

@@ -136,7 +136,7 @@ gifPreviewBtn.addEventListener("click", (e) => {
   if (searchGyphy.value == "") {
     alert("No gif selected!");
   } else {
-    fetch('https//api.giphy.com/v1/gifs/search?api_key=TcBkX2mTEeOViaTrLzZIf766tBvbY4Fm&q=' + searchGyphy.value.replaceAll(" ", "+").toLowerCase())
+    fetch('https://api.giphy.com/v1/gifs/search?api_key=TcBkX2mTEeOViaTrLzZIf766tBvbY4Fm&q=' + searchGyphy.value.replaceAll(" ", "+").toLowerCase())
     .then(res=>res.json())
     .then((res) => {
       while (preview.children.length > 0) {

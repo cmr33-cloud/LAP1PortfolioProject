@@ -19,4 +19,4 @@ const entries = [
 }
 ];
 
-module.exports = entries;
+//module.exports = entries;

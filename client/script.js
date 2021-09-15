@@ -1,5 +1,4 @@
 
-
 // Elements     - HTML
 const timeline = document.getElementById("timeline");
 const newEntryBtn = document.getElementById("addNewEntryBtn");
@@ -246,6 +245,9 @@ function entryById(e) {
         entryText.class = "entryBody";
         current.appendChild(title);
         title.textContent = data.title;
+        let date = document.createElement('p')
+        date.textContent = data.date
+        current.appendChild(date)
         current.appendChild(image);
         image.src = data.image;
         current.appendChild(entryText);
@@ -260,9 +262,17 @@ function entryById(e) {
 
         current.appendChild(comments);
         renderComments(comments,data)
-       
+        //  ---  entryById reactions listener
+        current.addEventListener("click", (e) => {
+          e.preventDefault();
+          const target = e.target;
+          
+          if (target.closest('a')) {
+            handleEmoji(e)
+          }
+        });
 
-        //   ----  new comment listener
+        //   ----  entryById  -  new comment listener
         
         const commentInput =document.getElementById('newCommentInput')
         console.log(commentInput)
@@ -277,6 +287,8 @@ function entryById(e) {
             commentInput.value.length <= 1000
             ) {
               addNewComment(entryId, commentInput.value);
+              window.location.reload(true);
+
             } else {
               alert("Please say something nice.");
             }
@@ -321,11 +333,17 @@ fetch("http://localhost:3000/allentries")
   .then((r) => r.json())
   .then((res) => {
     for (let a of res) {
+      
+    
+
+    
       let current = document.createElement("article");
       timeline.appendChild(current);
       current.class = "card";
       current.dataset.value = a.id;
       let title = document.createElement("h3");
+      let date = document.createElement('p')
+      date.textContent = a.date
       if (
         a.image ==
         "https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg"
@@ -345,6 +363,7 @@ fetch("http://localhost:3000/allentries")
       image.class = "entryImage";
       entryText.class = "entryBody";
       current.appendChild(title);
+      current.appendChild(date);
       title.textContent = a.title;
       current.appendChild(image);
       image.src = a.image;
@@ -359,6 +378,7 @@ fetch("http://localhost:3000/allentries")
       current.appendChild(commentsCount);
       commentsCount.textContent = `Comments:  ${a.comments.length}`
 
+     
       
     }
   });

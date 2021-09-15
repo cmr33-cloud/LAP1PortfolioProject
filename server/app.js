@@ -94,5 +94,6 @@ for(let a of Object.values(req.query)){for(let b of entries){if(b.tags.includes(
 res.json(results)
 })
 //app.listen(port, () => {console.log(`Listening on localhost:${port}...`)})
+app.listen(process.env.PORT || 5000);
 
 module.exports = app;

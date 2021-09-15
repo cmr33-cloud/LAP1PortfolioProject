@@ -15,7 +15,18 @@ const selectEntry = document.getElementById("timeline");
 const emojis = document.getElementById("addEntryEmojis");
 
 //   Event Listeners  -  new entry
-selectEntry.addEventListener("click", entryById);
+electEntry.addEventListener("click", (e) => {
+  e.preventDefault();
+  const target = e.target;
+  
+  if (target.closest('a')) {
+    handleEmoji(e)
+  }
+  else {
+    entryById(e)
+  }
+
+});
 
 searchByKeywordBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -125,9 +136,8 @@ async function getanew() {
 
 function handleEmoji(e){
 let targetEmoji = e.target.closest('a');
-console.log(targetEmoji);
 let entry = e.target.closest('article');
-let entryId = entry.id;
+let entryId = entry.dataset.value;
     // change number on the entry page
     let emojiCount = parseInt(targetEmoji.querySelector('p').textContent)+1;
     targetEmoji.querySelector('p').textContent = String(emojiCount)
@@ -137,28 +147,13 @@ sendEmoji(entryId, parseInt(targetEmoji.name), emojiCount)
 }
 
 function sendEmoji(id, emojiId, emojiCount){
-    console.log(emojiId)
-      
-    function emojiData(emId, emCount){
-      if (emId ==='emoji1') {
-        return [emojiId, emCount]
-      } 
-      else if (emId ==='emoji2') {
-        return [emojiId, emCount]
-      } else {
-      
-        return [emojiId, emCount]
-      }
-       }
-    console.log(emojiData(emojiId,emojiCount))
     const options = {
         method: 'PATCH',
-        body: JSON.stringify(emojiData(emojiId,emojiCount)),
+        body: JSON.stringify([emojiId,emojiCount]),
         headers: {
           'Content-Type': 'application/json',
         },
       };
-console.log(options);
     
     fetch(`http://localhost:3000/entry/${id}/reactions`, options)
     .then((r) => r.json())
@@ -260,7 +255,6 @@ function entryById(e) {
     console.log(error);
   }
 }
-
 fetch("http://localhost:3000/allentries")
   .then((r) => r.json())
   .then((res) => {

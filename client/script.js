@@ -121,7 +121,7 @@ while (preview.children.length > 0) {
 }
 
 addGiphyBtn.addEventListener("click", (e)=>{e.preventDefault(); 
-if(preview.children.length>0){gifadded = true; yourgif = preview.children[0].src; unhide(gifAdded)}
+if(preview.children.length>0){gifadded = true; yourgif = preview.children[0].src; unhide(gifAdded1)}
 else {alert("No gif selected!")}
 })
 

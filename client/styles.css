@@ -2,3 +2,11 @@
     display: flex;
     justify-content: flex-end;
     }
+    .topnav {
+        overflow: hidden;
+        background-color: white;
+        position: fixed;
+        display: flex;
+      }
+      .topnav > button {
+      float: left;}

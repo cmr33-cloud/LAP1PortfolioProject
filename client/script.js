@@ -338,46 +338,61 @@ fetch(`https://${host}/allentries`)
     for (let a of res) {
       let current = document.createElement("article");
       timeline.appendChild(current);
-      current.class = "card";
+      current.className = "col-md-5  col-sm-12 card text-center shadow mx-4 my-4";
+
       current.dataset.value = a.id;
+      // -------  title 
       let title = document.createElement("h3");
-      let date = document.createElement('p')
-      date.textContent = a.date
-      if (
-        a.image ==
-        `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
-      ) {
-        image = document.createElement("img");
-        image.height = 150;
-        image.width = 150;
-      } else {
-        image = document.createElement("iframe");
-      }
-      (entryText = document.createElement("div")),
-        (allTheEmojis = document.createElement("div")),
-        (emojiCounts = document.createElement("a")),
-        (commentsCount = document.createElement("div")),
-      
-      title.class = "entryTitle";
-      image.class = "entryImage";
-      entryText.class = "entryBody";
-      current.appendChild(title);
-      current.appendChild(date);
+      title.className ="card-title my-3 entryTitle"
       title.textContent = a.title;
-      current.appendChild(image);
-      image.src = a.image;
-      current.appendChild(entryText);
-      entryText.textContent = a.body;
-      current.appendChild(allTheEmojis);
+      current.appendChild(title);
+      //  ------- date 
+      let date = document.createElement('small')
+      date.textContent = a.date
+      date.className="card-subtitle text-muted mb-2"
+      current.appendChild(date);
+      //--   card body 
+
+      let cardBody = document.createElement('div')
+      cardBody.className = "card-body"
+      current.appendChild(cardBody);
       
-      renderEmoji(allTheEmojis, a)
-      allTheEmojis.className += "emojiBox"
+       //  ------ img inside card body
+       if (
+         a.image ==
+         `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
+         ) {
+           image = document.createElement("img");
+           image.height = 150;
+           image.width = 150;
+          } else {
+            image = document.createElement("iframe");
+          }
+          cardBody.appendChild(image);
+          image.class = "entryImage";
+        image.src = a.image;
+       //  ----  entry main text inside card body
+       (entryText = document.createElement("div")),
+       entryText.className = "entryBody card-text my-2 ";
+       cardBody.appendChild(entryText);
+       entryText.textContent = a.body;
+       // --------- card footer 
+        cardFooter = document.createElement("div") 
+        cardFooter.className = "row card-footer text-muted justify-content-between"
+        current.appendChild(cardFooter);
+        
+        // -------- number of comments inside cardFooter
+        
+        (commentsCount = document.createElement("div"))
+        commentsCount.className ="col"
+         cardFooter.appendChild(commentsCount);
+         // commentsCount.textContent = `Comments:  ${a.comments.length}`
 
-      //current.appendChild(emojiCounts);
-      current.appendChild(commentsCount);
-      commentsCount.textContent = `Comments:  ${a.comments.length}`
-
-     
+        //  ------- emoji box inside card footer 
+        (allTheEmojis = document.createElement("div"))
+        allTheEmojis.className = "col emojiBox d-flex flex-row justify-content-around"
+        cardFooter.appendChild(allTheEmojis);
+          renderEmoji(allTheEmojis, a)
       
     }
   });
@@ -407,6 +422,9 @@ function renderEmoji(element, data) {
     element.appendChild(clickableEmoji)
   }
 }
+
+
+
 
 //  ----------------  render comment box  
 function renderComments(element,data) {

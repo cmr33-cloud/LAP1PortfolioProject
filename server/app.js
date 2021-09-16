@@ -122,8 +122,7 @@ app.all('/entry/:id/comments', (req, res) => {
         });
         
         console.log(`Updated comments on entry index ${entryIndex}.`);  
-        res.status(200).send({'msg': 'mission success!',
-      'data': [fileData, entryIndex, fileData[entryIndex].comments]}
+        res.status(200).send({'data': [fileData, entryIndex, fileData[entryIndex].comments]}
     )
     
 }

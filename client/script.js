@@ -435,10 +435,12 @@ function renderComments(element,data) {
     submitNewComment.type="submit"
     submitNewComment.value="Add comment"
     submitNewComment.id="submitNewCommentBtn"
-    
+    comsucc = document.createElement('text'); comsucc = textContent ="Comment successfully added!";
+    comsucc.style = "color:red"; comsucc.hidden = true;
 
     newCommentBox.appendChild(newCommentInput)
     newCommentBox.appendChild(submitNewComment)
+    newCommentBox.appendChild(comsucc);
 
     element.appendChild(newCommentBox)
    

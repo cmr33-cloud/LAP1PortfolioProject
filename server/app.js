@@ -109,7 +109,7 @@ app.patch('/entry/:id/comments', (req, res) => {
   
         //Replace entry in JSON file with new entry withu updated reacts
       
-        fileData[entryIndex].comments.push(JSON.parse(req.body));  
+        fileData[entryIndex].comments.push(req.body);  
         const jsonString = JSON.stringify(fileData, null, 2);
         fs.writeFile('server/entries.json', jsonString, (err) => {
             if (err) {
@@ -120,10 +120,7 @@ app.patch('/entry/:id/comments', (req, res) => {
         console.log(`Updated comments on entry index ${entryIndex}.`);  
       }
     })
-  res.send({
-    fileData: fileData,
-    entryIndex: entryIndex,
-    theComments: fileData[entryIndex].comments
+  res.send({'this is what you sent': req.body})
   })
 })
 

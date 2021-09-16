@@ -281,9 +281,10 @@ function entryById(e) {
         
         const commentInput =document.getElementById('newCommentInput')
         console.log(commentInput)
-        const submitNewCommentBtn = document.getElementById('submitNewCommentBtn')
-        console.log(submitNewCommentBtn)
-        submitNewCommentBtn.addEventListener("click", (e) => {
+        // const submitNewCommentBtn = document.getElementById('submitNewCommentBtn')
+        // console.log(submitNewCommentBtn)
+        // submitNewCommentBtn.
+        newCommentBtn.addEventListener("click", (e) => {
           e.preventDefault(); 
 
           

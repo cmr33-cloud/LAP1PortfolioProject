@@ -245,7 +245,6 @@ function entryById(e) {
     fetch(`https://${host}/entry/${entryId}`)
       .then((r) => r.json())
       .then((data) => {
-        
         let current = document.getElementById("displayById");
         current.className = "col-md-5  col-sm-12 card text-center shadow mx-4 my-4";
         current.dataset.value = data.id;
@@ -264,6 +263,8 @@ function entryById(e) {
        // card body 
        cardBody = document.createElement("div");
        cardBody.className ="card-body"
+       current.appendChild(cardBody);
+       
 
         //  img inside card body
         if (
@@ -279,20 +280,28 @@ function entryById(e) {
         cardBody.appendChild(image);
         image.class = "entryImage";
         image.src = data.image;
+        
 
         // text inside card body
-        (entryText = document.createElement("div")),
-        entryText.className="card-text my-2 entryBody";
+        entryText = document.createElement("div")
         cardBody.appendChild(entryText);
         entryText.textContent = data.body;
+        entryText.className="card-text my-3 entryBody";
+       
 
+        
       // comments inside card body
-      (comments = document.createElement("div")),
-      cardBody.appendChild(comments);
+      commentsWraper = document.createElement("div")
+      commentsWraper.className = "text-start px-2 mt-4"
+      cardBody.appendChild(commentsWraper)
+
+      comments = document.createElement("div")
+      
+      commentsWraper.appendChild(comments);
       renderComments(comments,data)
       
       //  emijis 
-      (allTheEmojis = document.createElement("div")),
+      allTheEmojis = document.createElement("div")
       
         cardBody.appendChild(allTheEmojis);
         renderEmoji(allTheEmojis, data)
@@ -313,9 +322,10 @@ function entryById(e) {
         //   ----  entryById  -  new comment listener
         
         const commentInput =document.getElementById('newCommentInput')
-        console.log(commentInput)
+       // console.log(commentInput)
         const submitNewCommentBtn = document.getElementById('submitNewCommentBtn')
-        console.log(submitNewCommentBtn)
+       // console.log(submitNewCommentBtn)
+        
         submitNewCommentBtn.addEventListener("click", (e) => {
           e.preventDefault(); 
 
@@ -332,6 +342,7 @@ function entryById(e) {
               alert("Please say something nice.");
             }
           });
+        
         });
         }
    catch (error) {
@@ -421,8 +432,8 @@ fetch(`https://${host}/allentries`)
         (commentsCount = document.createElement("div"))
         commentsCount.className ="col"
          cardFooter.appendChild(commentsCount);
-         console.log(a.comments)
-        //commentsCount.textContent = `Comments:  ${a.comments.length}`
+      
+       //commentsCount.textContent = `Comments:  ${a.comments.length}`
 
         //  ------- emoji box inside card footer 
         (allTheEmojis = document.createElement("div"))
@@ -485,10 +496,11 @@ function renderComments(element,data) {
     
     // new comment box
     const newCommentBox = document.createElement('form');
+
     const newCommentInput = document.createElement('textarea');
     newCommentInput.placeholder="Your comment";
     newCommentInput.id="newCommentInput";
-    newCommentInput.className ="form-control";
+    newCommentInput.className ="form-control mt-2";
     newCommentInput.rows = "3";
 
 
@@ -496,7 +508,7 @@ function renderComments(element,data) {
     submitNewComment.type="submit"
     submitNewComment.value="Add comment"
     submitNewComment.id="submitNewCommentBtn"
-    submitNewComment.className ="btn btn-outline-secondary";
+    submitNewComment.className ="btn btn-outline-secondary mt-2";
     comsucc = document.createElement('text'); comsucc.textContent ="Comment successfully added!";
     comsucc.style = "color:red"; comsucc.hidden = true;
 

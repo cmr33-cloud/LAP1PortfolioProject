@@ -1,3 +1,5 @@
+//dependencies
+
 const express = require("express"),
   cors = require("cors"),
   corsOptions = {
@@ -20,6 +22,7 @@ app.get("/", (req, res) => {
   res.send("Hello there!");
 });
 
+//allows new entires to be posted
 app.post("/newentry", (req, res) => {
   //handles post requests and then writes data to entries.json
   const data = req.body;
@@ -44,14 +47,17 @@ app.post("/newentry", (req, res) => {
 
 // router.post('/', (req, res) => );
 
+//route to get all entries
 app.get("/allEntries", (req, res) => {
   res.json(entries);
 });
 
+//Test route
 app.post("/", (req, res) => {
   res.status(405).send("Not allowd!");
 });
 
+//Route for entries by ID
 app.get("/entry/:id", (req, res) => {
   if (req.params.id - 1 <= entries.length) {
     res.send(entries[req.params.id - 1]);
@@ -60,6 +66,7 @@ app.get("/entry/:id", (req, res) => {
   }
 });
 
+//route for array of reactions for entries by ID and handles file writing
 app.all("/entry/:id/reactions", (req, res) => {
   let emojiIndex = req.body[0] - 1;
 
@@ -95,6 +102,7 @@ app.get("/entry/:id/comments", (req, res) => {
   res.json(entries[req.params.id - 1].comments);
 });
 
+//route for finding an entry comments by Id, also handles file writing
 app.put("/entry/:id/comments", (req, res) => {
   let entryIndex = req.params.id - 1;
   entries[entryIndex].comments.push({
@@ -130,6 +138,7 @@ app.put("/entry/:id/comments", (req, res) => {
     }
   });
 });
+
 
 app.get("/search", (req, res) => {
   let results = [];

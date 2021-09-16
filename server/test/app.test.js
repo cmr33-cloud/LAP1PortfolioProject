@@ -82,7 +82,7 @@ describe('API server', () => {
         request(api)
         .get('/entry/1/reactions')
         .expect(200)
-        .expect([ 9, 3, 0 ],done)
+        .expect('[9,3,0]',done)
         })
 
     it('retrieves the comment array by id on path /entry/:id/comments', (done) => {

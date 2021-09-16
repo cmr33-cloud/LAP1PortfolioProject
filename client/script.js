@@ -94,15 +94,16 @@ async function getanew() {
     url =
       `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`;
   }
+  let newPost = {
+    title: newEntry.children[0].value,
+    body: newEntry.children[1].value,
+    tags: getTags(newEntry.children[1].value),
+    image: url,
+  };
   const options = await {
     method: "POST",
     mode: 'cors',
-    body: JSON.stringify({
-      title: newEntry.children[0].value,
-      body: newEntry.children[1].value,
-      tags: getTags(newEntry.children[1].value),
-      image: url,
-    }),
+    body: JSON.stringify(newPost),
     headers: {
       "Content-Type": "application/json",
     },
@@ -444,4 +445,11 @@ function renderComments(element,data) {
 
     element.appendChild(newCommentBox)
    
+}
+
+module.exports = {
+      getanew,
+      sendEmoji,
+      entryById,
+      addNewComment
 }

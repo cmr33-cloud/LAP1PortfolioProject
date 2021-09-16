@@ -15,6 +15,7 @@ const newCommentBtn = document.getElementById("addNewCommentBtn");
 
 const emojis = document.getElementById("addEntryEmojis");
 let gifadded;
+home.addEventListener("click", (e) => {window.location.reload()});
 
 //   Event Listeners  -  new entry
 timeline.addEventListener("click", (e) => {

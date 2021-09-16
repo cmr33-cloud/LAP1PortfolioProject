@@ -31,8 +31,12 @@ timeline.addEventListener("click", (e) => {
 });
 
 showNewEntryForm.addEventListener("click", (e) => {
-  if(newEntryForm.hidden){newEntryForm.hidden = false; showNewEntryForm.textContent = "Cancel"}
-  else {newEntryForm.hidden = true; showNewEntryForm.textContent = "New entry"}
+  if(newEntryHere.hidden){newEntryHere.hidden = false}
+});
+
+cancel.addEventListener("click", (e) => {
+  newEntryHere.hidden = true; newEntryTitle.value = ""; newEntryText.value = ""; searchGyphy.value = "";
+  gifadded = false;
 });
 
 searchByKeywordBtn.addEventListener("click", (e) => {

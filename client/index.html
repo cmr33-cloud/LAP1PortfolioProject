@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-<head>
+<style>
+.topnav {
+    overflow: hidden;
+    background-color: white;
+    position: fixed;
+    display: flex;
+  }
+  .topnav > button {
+  float: left;}
+</style>
+    <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,25 +22,28 @@
 
     <link rel="stylesheet" href="styles.css">
     <script defer src = "script.js"></script>
-    <button id = "showNewEntryForm">New entry</button>
 </head>
 
 <body>
  <!-- ----- top bar with 'search  post by keywords' ---- -->   
- <form id="search-bar">
-    <input type="search" id="searchByKeywordInput" placeholder="Search entries by keyword ..." />
-    <input type="submit" id="searchByKeywordBtn" value="search">
-</form>  
 
 <!--  -------------- logo and header -------  -->
-<h1> Lap 1 project </h1>
+
+<div class="topnav" id = "topnav">
+    <a href = "index.html">🏠Home</a>
+<input type='button' id = "showNewEntryForm" value='New entry'>
+    <form id="search-bar">
+        <input type="search" id="searchByKeywordInput" placeholder="Search entries by keyword ..." />
+        <input type="submit" id="searchByKeywordBtn" value="Search">
+    </form>  
+</div>
+<br><br><br>
 
 <!--  -------------- add new entry card -------  -->
 
 <section >
-    <div class="entryCard">
-    <h3>New Entry</h3>
-        <form id ="newEntry" hidden = true>
+    <div id= "newEntryHere" class="entryCard" hidden = true>
+        <form id ="newEntry">
             <input id="newEntryTitle" type="text" placeholder="Title">
             <input id="newEntryText" type="textarea" placeholder="Your entry (max 3000 characters)">
         
@@ -47,6 +60,7 @@
             <div id = "preview"></div>
             <!-- ----------------------->
             <input id="addNewEntryBtn" type="submit" value="Submit entry">
+            <input type='button' id = "cancel" value='Cancel'>
         </form>
 
         <text id = "addEntry" hidden=true>Entry successfully added!</text>

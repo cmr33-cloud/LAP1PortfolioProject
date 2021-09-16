@@ -335,6 +335,7 @@ function entryById(e) {
             commentInput.value.length <= 1000
             ) {
               addNewComment(entryId, commentInput.value);
+              renderNewComment(Date(),commentInput.value,commentsWraper)
               commentInput.value = "";
               //window.location.reload(true);
               unhide(comsucc)
@@ -357,9 +358,10 @@ function unhide(object){
     object.hidden = true;
   }, 3000);
 }
+
 // Sends new comment to server with a PUT request
 function addNewComment(entryId,commentText) {
-console.log(entryId, commentText);
+  console.log(entryId, commentText);
   const options = {
     method: "PUT",
     mode: 'cors',
@@ -368,14 +370,31 @@ console.log(entryId, commentText);
       "Content-Type": "application/json",
     },
   };
-
-   fetch(`https://${host}/entry/${entryId}/comments`, options)
-   .then((r) => r.json())
-    .then((r) => console.log(r))
-    .catch(console.warn);
-
+  
+  fetch(`https://${host}/entry/${entryId}/comments`, options)
+  .then((r) => r.json())
+  .then((r) => console.log(r))
+  .catch(console.warn);
+  
 }
 
+// adding new comment on the card 
+ function renderNewComment(date, text, element) {
+ const singleCommentBox = document.createElement('div');
+    const commentDate = document.createElement('small');
+    const commentText = document.createElement('p');
+    commentDate.className = "text-muted mb-2";
+    commentText.className = "card-text";
+
+    commentDate.textContent = date;
+    commentText.textContent = text;
+
+    singleCommentBox.appendChild(commentDate)
+    singleCommentBox.appendChild(commentText)
+  
+    
+    element.appendChild(singleCommentBox)
+ }
 
 //   ------------------   timeline render
 fetch(`https://${host}/allentries`)

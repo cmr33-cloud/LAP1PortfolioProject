@@ -95,11 +95,21 @@ app.get("/entry/:id/comments", (req, res) => {
   res.json(entries[req.params.id - 1].comments);
 });
 
+app.get("/delete", (req, res) => {
+  
+  for(let a of entries){let wrong = []; for (let b of a.comments)
+{if(Object.keys(b).length==0){wrong.push(b)};
+}
+for(let c of wrong){a.comments.splice(a.indexOf(c), 1)}
+}}
+)
+
 app.put("/entry/:id/comments", (req, res) => {
   let entryIndex = req.params.id - 1;
-  entries[entryIndex].comments.push(
-    {'date':
-    req.body[0], 'comment': req.body[1]});
+  entries[entryIndex].comments.push({
+    date: req.body[0],
+    comment: req.body[1],
+  });
   //   rewrite json
 
   fs.readFile("server/entries.json", "utf8", (err, data) => {
@@ -111,10 +121,10 @@ app.put("/entry/:id/comments", (req, res) => {
 
       //Replace entry in JSON file with new entry withu updated reacts
 
-      fileData[entryIndex].comments = {
+      fileData[entryIndex].comments.push({
         date: req.body[0],
         comment: req.body[1],
-      };
+      });
       const jsonString = JSON.stringify(fileData, null, 2);
       fs.writeFile("server/entries.json", jsonString, (err) => {
         if (err) {

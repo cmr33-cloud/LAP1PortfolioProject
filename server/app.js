@@ -100,18 +100,18 @@ app.patch('/entry/:id/comments', (req, res) => {
   let entryIndex= req.params.id-1;
   //   rewrite json 
   
-  fs.readFile('entries.json', 'utf8', (err, data) => {
+  fs.readFile('server/entries.json', 'utf8', (err, data) => {
     if(err) {
         console.log(`Error reading file: ${err}`);
     } else {
       
-      const fileData = JSON.parse(fs.readFileSync('entries.json'))
+      const fileData = JSON.parse(fs.readFileSync('server/entries.json'))
   
         //Replace entry in JSON file with new entry withu updated reacts
       
         fileData[entryIndex].comments.push(req.body);  
         const jsonString = JSON.stringify(fileData, null, 2)
-        fs.writeFile('entries.json', jsonString, (err) => {
+        fs.writeFile('server/entries.json', jsonString, (err) => {
             if (err) {
                 console.log(`Error writing file: ${err}`);
             }

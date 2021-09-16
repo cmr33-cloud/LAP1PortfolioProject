@@ -247,9 +247,25 @@ function entryById(e) {
       .then((data) => {
         
         let current = document.getElementById("displayById");
-        current.class = "card";
+        current.className = "col-md-5  col-sm-12 card text-center shadow mx-4 my-4";
         current.dataset.value = data.id;
+        // entry title
         let title = document.createElement("h3");
+        title.className = "card-title entryTitle";
+        current.appendChild(title);
+        title.textContent = data.title;
+
+       // entry date
+       let date = document.createElement('small')
+       date.textContent = data.date
+       current.appendChild(date)
+       date.className = "card-subtitle text-muted mb-2"
+
+       // card body 
+       cardBody = document.createElement("div");
+       cardBody.className ="card-body"
+
+        //  img inside card body
         if (
           data.image ==
           `https://cliparting.com/wp-content/uploads/2017/03/Pen-clipart-to-download.jpg`
@@ -260,32 +276,30 @@ function entryById(e) {
         } else {
           image = document.createElement("iframe");
         }
-        (entryText = document.createElement("div")),
-          (allTheEmojis = document.createElement("div")),
-          (emojiCounts = document.createElement("a")),
-          (comments = document.createElement("div")),
-        title.class = "entryTitle";
+        cardBody.appendChild(image);
         image.class = "entryImage";
-        entryText.class = "entryBody";
-        current.appendChild(title);
-        title.textContent = data.title;
-        let date = document.createElement('p')
-        date.textContent = data.date
-        current.appendChild(date)
-        current.appendChild(image);
         image.src = data.image;
-        current.appendChild(entryText);
+
+        // text inside card body
+        (entryText = document.createElement("div")),
+        entryText.className="card-text my-2 entryBody";
+        cardBody.appendChild(entryText);
         entryText.textContent = data.body;
-        current.appendChild(allTheEmojis);
-        current.appendChild(emojiCounts);
 
-
+      // comments inside card body
+      (comments = document.createElement("div")),
+      cardBody.appendChild(comments);
+      renderComments(comments,data)
+      
+      //  emijis 
+      (allTheEmojis = document.createElement("div")),
+      
+        cardBody.appendChild(allTheEmojis);
         renderEmoji(allTheEmojis, data)
-        allTheEmojis.className += "emojiBox emoji"
+        allTheEmojis.className = "col emojiBox d-flex flex-row justify-content-end"
+          
 
 
-        current.appendChild(comments);
-        renderComments(comments,data)
         //  ---  entryById reactions listener
         current.addEventListener("click", (e) => {
           e.preventDefault();
@@ -407,7 +421,8 @@ fetch(`https://${host}/allentries`)
         (commentsCount = document.createElement("div"))
         commentsCount.className ="col"
          cardFooter.appendChild(commentsCount);
-         // commentsCount.textContent = `Comments:  ${a.comments.length}`
+         console.log(a.comments)
+        //commentsCount.textContent = `Comments:  ${a.comments.length}`
 
         //  ------- emoji box inside card footer 
         (allTheEmojis = document.createElement("div"))
@@ -428,7 +443,7 @@ function renderEmoji(element, data) {
     clickableEmoji = document.createElement('a')
     clickableEmoji.href = ""
     clickableEmoji.name = i+1
-    clickableEmoji.className += "emoji"
+    clickableEmoji.className += "emoji px-2"
     icon = document.createElement('i')
     icon.className += emojiIcons[i]
     icon.clicked = false;
@@ -455,7 +470,9 @@ function renderComments(element,data) {
     const singleCommentBox = document.createElement('div');
     const commentDate = document.createElement('small');
     const commentText = document.createElement('p');
-    commentDate.style = "color: gray; display: inline";
+    commentDate.className = "text-muted mb-2";
+    commentText.className = "card-text";
+
     commentDate.textContent = data.comments[i].date;
     commentText.textContent = data.comments[i].comment;
 
@@ -468,14 +485,18 @@ function renderComments(element,data) {
     
     // new comment box
     const newCommentBox = document.createElement('form');
-    const newCommentInput = document.createElement('input');
-    newCommentInput.type="textarea";
+    const newCommentInput = document.createElement('textarea');
     newCommentInput.placeholder="Your comment";
-    newCommentInput.id="newCommentInput"
+    newCommentInput.id="newCommentInput";
+    newCommentInput.className ="form-control";
+    newCommentInput.rows = "3";
+
+
     submitNewComment = document.createElement('input');
     submitNewComment.type="submit"
     submitNewComment.value="Add comment"
     submitNewComment.id="submitNewCommentBtn"
+    submitNewComment.className ="btn btn-outline-secondary";
     comsucc = document.createElement('text'); comsucc.textContent ="Comment successfully added!";
     comsucc.style = "color:red"; comsucc.hidden = true;
 

@@ -446,4 +446,4 @@ function renderComments(element,data) {
 
     element.appendChild(newCommentBox)
    
-}
+}}

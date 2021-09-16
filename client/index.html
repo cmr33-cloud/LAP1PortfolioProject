@@ -72,14 +72,38 @@
             </div> 
         </section>
         -------------->
-    
+        <!-- <section >
+            <div id= "newEntryHere" class="entryCard" hidden = true>
+                <form id ="newEntry">
+                    <input id="newEntryTitle" type="text" placeholder="Title">
+                    <input id="newEntryText" type="textarea" placeholder="Your entry (max 3000 characters)">
+                
+                    <!-- -- add GIF ------- -->
+                
+                    <form id="gifForm">
+                        <input type="search" id="searchGyphy" placeholder="Search GIPHY">
+                        <div id="gif-form-btns">
+                            <input id="gifPreviewBtn" type="submit" value="Preview Gif">
+                            <input id="addGiphy" type="button" value="Add Gif">
+                            <text id = "gifAdded1" style="color:red" hidden = true>Gif added!</text>
+                        </div>
+                    </form>
+                    <div id = "preview"></div>
+                    <!-- ----------------------->
+                    <input id="addNewEntryBtn" type="submit" value="Submit entry">
+                    
+                </form>
+        
+                <text id = "addEntry" hidden=true>Entry successfully added!</text>
+            </div> 
+        </section> -->
     <!--  ------------------------   main timeline -------  -->
 <article id="displayById"></article>
 <section class="container py-5">
-    <div id="timeline"class="row card-deck">
+    <div id="timeline" class="row card-deck">
      
   <!-- ------------add new entry card  --------------   -->
-        <article class="entryCard col-md-5  col-sm-12 card text-center shadow mx-4 my-4">
+        <article id= "newEntryHere" class="entryCard col-md-5  col-sm-12 card text-center shadow mx-4 my-4">
             <div class="row justify-content-around">
 
                 <h3 class="card-title my-3">new entry</h3>
@@ -102,7 +126,7 @@
                         <div id="gif-form-btns" class="justify-content-around" >
                             <input class="btn btn-outline-secondary" id="gifPreviewBtn" type="submit" value="Preview Gif">
                             <input class="btn btn-outline-secondary" id="addGiphy" type="button" value="Add Gif">
-                            <text id="gifAdded" style="color:red" hidden="true">Gif added!</text>
+                            <text id="gifAdded1" style="color:red" hidden="true">Gif added!</text>
                         </div>
                     </form>
                     <div id="preview"></div>
@@ -110,6 +134,7 @@
                 </div>
                     <div class="row card-footer ">
                         <input class="btn btn-outline-secondary" id="addNewEntryBtn" type="submit" value="Submit entry">
+                        <input type='button' id = "cancel" value='Cancel'>
                     </div>
 
                     <text id="addEntry" hidden="true" style="color: red;">Entry successfully added!</text>

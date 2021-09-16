@@ -15,6 +15,7 @@ const newCommentBtn = document.getElementById("addNewCommentBtn");
 
 const emojis = document.getElementById("addEntryEmojis");
 let gifadded;
+home.addEventListener("click", (e) => {window.location.reload()});
 
 //   Event Listeners  -  new entry
 timeline.addEventListener("click", (e) => {
@@ -43,6 +44,7 @@ cancel.addEventListener("click", (e) => {e.preventDefault();
 
 });
 
+//Event listener and function forsearching by tags
 searchByKeywordBtn.addEventListener("click", (e) => {
   e.preventDefault();
   let searchers = searchByKeywordInput.value.split(" ");
@@ -70,6 +72,7 @@ searchByKeywordBtn.addEventListener("click", (e) => {
 addEntry.style = "color:red";
 //   Event Listeners  -  new entry
 
+//Function for generating tags based on the content of each entry
 function getTags(string) {
   let keywords = ["a", "an", "and", "i", "is", "in", "it", "of", "the", "to"];
   let allwords = [];
@@ -100,6 +103,8 @@ function getTags(string) {
   let tags = [ordered[0][0], ordered[1][0], ordered[2][0]];
   return tags;
 }
+
+//This function creates a new entry and posts it to the server
 async function getanew() {
   let url;
   if (gifadded) {url = yourgif;
@@ -134,11 +139,13 @@ while (preview.children.length > 0) {
   });
 }
 
+//Event listener for the Gif button
 addGiphyBtn.addEventListener("click", (e)=>{e.preventDefault(); 
 if(preview.children.length>0){gifadded = true; yourgif = preview.children[0].src; unhide(gifAdded1)}
 else {alert("No gif selected!")}
 })
 
+//Event listener for the gif preview button
 gifPreviewBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (searchGyphy.value == "") {
@@ -160,6 +167,7 @@ gifPreviewBtn.addEventListener("click", (e) => {
 
 // --  add emoji reactions
 
+//handleEmoji handles emoji clicks
 function handleEmoji(e) {
   let emojiCount;
   let targetEmoji = e.target.closest('a');
@@ -175,6 +183,7 @@ function handleEmoji(e) {
   sendEmoji(entryId, parseInt(targetEmoji.name), emojiCount)
 }
 
+//sendEmoji sendsthe emoji data to the server with a PATCH method
 function sendEmoji(id, emojiId, emojiCount) {
   
 
@@ -200,6 +209,7 @@ emojis.addEventListener('click', (e) => {
 })
 
 //  --------------------- new Entry
+//Makes sure new entry is the correct length and isn't blank
 function addNewEntry() {
   if (
     newEntry.children[0].value != "" &&
@@ -212,17 +222,19 @@ function addNewEntry() {
   }
 }
 
+//event listener for add new entry button
 addNewEntryBtn.addEventListener("click", (e) => {
   e.preventDefault();
   addNewEntry();
 });
 
-document.querySelector("body").addEventListener("keydown", (e) => {
-  if (e.key == "Enter") {
-    e.preventDefault();
-    addNewEntry();
-  }
-});
+//allows enter to bepressed instead of clicking the add new ntry button
+// document.querySelector("body").addEventListener("keydown", (e) => {
+//   if (e.key == "Enter") {
+//     e.preventDefault();
+//     addNewEntry();
+//   }
+// });
 //      ------  get Entry By Id     render
 function entryById(e) {
   try {
@@ -312,13 +324,15 @@ function entryById(e) {
     console.log(error);
   }
 }
+
+//unhides target object
 function unhide(object){
   object.hidden = false;
   setTimeout(function () {
     object.hidden = true;
   }, 3000);
 }
-// ----------------
+// Sends new comment to server with a PUT request
 function addNewComment(entryId,commentText) {
 console.log(entryId, commentText);
   const options = {
@@ -336,13 +350,6 @@ console.log(entryId, commentText);
     .catch(console.warn);
 
 }
-
-console.log("update at 12:18");
-
-
-
-
-
 
 
 //   ------------------   timeline render
@@ -446,14 +453,16 @@ function renderComments(element,data) {
   console.log(data.comments)
   for (i = 0; i < data.comments.length; i++) {
     const singleCommentBox = document.createElement('div');
-    const commentDate = document.createElement('p');
+    const commentDate = document.createElement('small');
     const commentText = document.createElement('p');
-
+    commentDate.style = "color: gray; display: inline";
     commentDate.textContent = data.comments[i].date;
     commentText.textContent = data.comments[i].comment;
-  
+
     singleCommentBox.appendChild(commentDate)
     singleCommentBox.appendChild(commentText)
+  
+    
     element.appendChild(singleCommentBox)
   }
     
@@ -478,6 +487,7 @@ function renderComments(element,data) {
    
 }
 
+//exported functions for testing
 module.exports = {
       getanew,
       sendEmoji,

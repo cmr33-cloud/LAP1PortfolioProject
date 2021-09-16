@@ -33,14 +33,29 @@
 
 <!--  -------------- logo and header -------  -->
 
-<div class="topnav" id = "topnav">
-    <a href = "index.html">🏠Home</a>
-<input type='button' id = "showNewEntryForm" value='New entry'>
-    <form id="search-bar">
-        <input type="search" id="searchByKeywordInput" placeholder="Search entries by keyword ..." />
-        <input type="submit" id="searchByKeywordBtn" value="Search">
+<nav class= "navbar-expand-lg navbar-light bg-light">
+   <button class="btn btn-link" id = "home">🏠 Home</button>
+    <button id = "showNewEntryForm" class = "btn btn-primary">New entry</button>
+    <!-- <div class="input-group">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control" />
+          <label class="form-label" for="form1">Search</label>
+        </div>
+        <button type="button" class="btn btn-primary">
+          
+        </button>
+      </div> -->
+    <form class="form-inline my-2 my-lg-0" id="search-bar">
+        <div class="input-group mb-3">
+        <input type="search" id="searchByKeywordInput" class="form-control mr-sm-2" placeholder="Search entries by keyword ..." />
+        <div class="input-group-append">
+            <button id='searchByKeywordBtn' class="btn btn-secondary btn-lg">
+                <i class="fas fa-search"></i>
+        </button>
+        </div>
+        </div>
     </form>  
-</div>
+</nav>
 <br><br><br>
 
 <!--  -------------- add new entry card -------  -->
@@ -106,7 +121,7 @@
         <article id= "newEntryHere" hidden = true class="entryCard col-md-5  col-sm-12 card text-center shadow mx-4 my-4">
             <div class="row justify-content-around">
 
-                <h3 class="card-title my-3">new entry</h3>
+                <h3 class="card-title my-3">New entry</h3>
                 <div class="card-body d-flex flex-column">
 
                     <form id="newEntry" class="form-group">
@@ -156,6 +171,7 @@
         <h3 class="entryTitle">Entry 2 Title</h3>
         <img  class="entryImg" src="https://picsum.photos/100" alt="">
         <div class="entryText">Lorem ipsum lorem ipsum</div>-->
+        <div hidden = true>
         <div id="addEntryEmojis">
             <a  id="emoji1" name="0" class="emojis" > 
                 <i class="far fa-smile"></i>
@@ -178,7 +194,7 @@
                 <p class="entryDate">17.09.2021</p>>
             </div>
             
-            
+         </div>   
             
             <form id ="newComment">
                 <input id="newCommentText" type="textarea" placeholder="Your comment">
@@ -188,7 +204,7 @@
         
     </article>
 
- --------------  footer with scroller -------  -->
+<!--------------  footer with scroller -------  -->
 
   <footer class="text-muted pb-3 mt-3 fixed-bottom bg-light">
     <div class="container">

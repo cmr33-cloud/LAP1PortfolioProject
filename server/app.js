@@ -95,18 +95,6 @@ app.get("/entry/:id/comments", (req, res) => {
   res.json(entries[req.params.id - 1].comments);
 });
 
-app.get("/delete", (req, res) => {
-  
-  for(let a of entries){let wrong = []; for (let b of a.comments)
-{if(Object.keys(b).length==0){wrong.push(b)};
-}
-for(let c of wrong){a.comments.splice(a.indexOf(c), 1)}
-}
-res.send(200).json({msg: "Mission accomplished!"})
-}
-
-)
-
 app.put("/entry/:id/comments", (req, res) => {
   let entryIndex = req.params.id - 1;
   entries[entryIndex].comments.push({

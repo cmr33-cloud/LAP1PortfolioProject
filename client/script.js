@@ -30,11 +30,11 @@ timeline.addEventListener("click", (e) => {
 
 });
 
-showNewEntryForm.addEventListener("click", (e) => {
+showNewEntryForm.addEventListener("click", (e) => {e.preventDefault();
   if(newEntryHere.hidden){newEntryHere.hidden = false}
 });
 
-cancel.addEventListener("click", (e) => {
+cancel.addEventListener("click", (e) => {e.preventDefault();
   newEntryHere.hidden = true; newEntryTitle.value = ""; newEntryText.value = ""; searchGyphy.value = "";
   gifadded = false;
 });

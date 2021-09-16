@@ -36,7 +36,11 @@ showNewEntryForm.addEventListener("click", (e) => {e.preventDefault();
 
 cancel.addEventListener("click", (e) => {e.preventDefault();
   newEntryHere.hidden = true; newEntryTitle.value = ""; newEntryText.value = ""; searchGyphy.value = "";
+  while (preview.children.length > 0) {
+    preview.removeChild(preview.lastChild);
+  }
   gifadded = false;
+
 });
 
 searchByKeywordBtn.addEventListener("click", (e) => {

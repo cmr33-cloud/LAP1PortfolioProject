@@ -459,9 +459,9 @@ function renderComments(element,data) {
     commentDate.textContent = data.comments[i].date;
     commentText.textContent = data.comments[i].comment;
 
- 
-    singleCommentBox.appendChild(commentText)
     singleCommentBox.appendChild(commentDate)
+    singleCommentBox.appendChild(commentText)
+  
     
     element.appendChild(singleCommentBox)
   }

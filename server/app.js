@@ -102,7 +102,7 @@ app.all("/entry/:id/comments", (req, res) => {
   fs.readFile("server/entries.json", "utf8", (err, data) => {
     if (err) {
       console.log(`Error reading file: ${err}`);
-      res.status(500).send({ msg: "mission failed!" });
+      res.status(500).send({ msg: `Error reading file: ${err}`});
     } else {
       
       const fileData = JSON.parse(fs.readFileSync('server/entries.json'));
@@ -116,11 +116,13 @@ app.all("/entry/:id/comments", (req, res) => {
         fs.writeFile('server/entries.json', jsonString, (err) => {
             if (err) {
                 console.log(`Error writing file: ${err}`);
+                res.status(500).send({msg: `Error writing file: ${err}`})
             }
+            else {res.status(200).send({msg: fileData[entryIndex].comments})}
         });
         
         console.log(`Updated comments on entry index ${entryIndex}.`);  
-        res.status(200).send((fileData[entryIndex].comments))
+        
     
 }
   })

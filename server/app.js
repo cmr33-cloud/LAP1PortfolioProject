@@ -13,6 +13,7 @@ app.use(express.json());
 
 
 app.use(cors(corsOptions))
+const e = require("express");
 const entryRoutes = require("./controllers/entries");
 app.use("/entries", entryRoutes);
 
@@ -120,8 +121,10 @@ app.patch('/entry/:id/comments', (req, res) => {
         console.log(`Updated comments on entry index ${entryIndex}.`);  
       }
     })
-  res.send({'this is what you sent': req.body})
-  })
+  res.send({'this is what you sent': req.body,
+  'this is what we tried to change': fileData[entryIndex].comments
+})
+  });
 
 
 

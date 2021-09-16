@@ -122,7 +122,7 @@ app.all('/entry/:id/comments', (req, res) => {
         });
         
         console.log(`Updated comments on entry index ${entryIndex}.`);  
-        res.status(200).send(res.send(fileData[entryIndex].comments))
+        res.status(200).send((fileData[entryIndex].comments))
     
 }
   })

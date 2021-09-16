@@ -315,6 +315,7 @@ console.log(entryId, commentText);
       "Content-Type": "application/json",
     },
   };
+  console.log(options);
 
    fetch(`https://${host}/entry/${entryId}/comments`, options)
    .then((r) => r.json())

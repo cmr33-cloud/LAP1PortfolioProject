@@ -109,7 +109,7 @@ app.patch('/entry/:id/comments', (req, res) => {
   
         //Replace entry in JSON file with new entry withu updated reacts
       
-        fileData[entryIndex].comments.push(req.body);  
+        fileData[entryIndex].comments.push(JSON.parse(req.body));  
         const jsonString = JSON.stringify(fileData, null, 2);
         fs.writeFile('server/entries.json', jsonString, (err) => {
             if (err) {

@@ -455,9 +455,10 @@ function renderComments(element,data) {
     const singleCommentBox = document.createElement('div');
     const commentDate = document.createElement('small');
     const commentText = document.createElement('p');
-    commentDate.style = "color: gray";
+    commentDate.style = "color: gray; display: inline";
     commentDate.textContent = data.comments[i].date;
     commentText.textContent = data.comments[i].comment;
+
  
     singleCommentBox.appendChild(commentText)
     singleCommentBox.appendChild(commentDate)

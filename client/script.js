@@ -310,10 +310,7 @@ console.log(entryId, commentText);
   const options = {
     method: "PATCH",
     mode: 'cors',
-    body: JSON.stringify({
-      date : Date(),
-      comment: commentText
-    }),
+    body: JSON.stringify([Date(), commentText]),
     headers: {
       "Content-Type": "application/json",
     },

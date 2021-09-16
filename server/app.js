@@ -91,12 +91,12 @@ app.all('/entry/:id/reactions', (req, res) => {
 })
 
 
-app.get('/entry/:id/comments', (req, res) => {
- res.send(entries[req.params.id-1].comments)
-})
+// app.get('/entry/:id/comments', (req, res) => {
+//  res.send(entries[req.params.id-1].comments)
+// })
 
 
-app.post('/entry/:id/comments', (req, res) => {
+app.all('/entry/:id/comments', (req, res) => {
   
   let entryIndex= req.params.id-1;
   //   rewrite json 
@@ -104,6 +104,7 @@ app.post('/entry/:id/comments', (req, res) => {
   fs.readFile('server/entries.json', 'utf8', (err, data) => {
     if(err) {
         console.log(`Error reading file: ${err}`);
+        res.send({msg: 'mission failed!'})
     } else {
       
       const fileData = JSON.parse(fs.readFileSync('server/entries.json'));
@@ -111,8 +112,8 @@ app.post('/entry/:id/comments', (req, res) => {
         //Replace entry in JSON file with new entry withu updated reacts
       
         fileData[entryIndex].comments.push(
-          {date:
-          req.body[0], comment: req.body[1]});  
+          {'date':
+          req.body[0], 'comment': req.body[1]});  
         const jsonString = JSON.stringify(fileData, null, 2);
         fs.writeFile('server/entries.json', jsonString, (err) => {
             if (err) {
@@ -121,9 +122,9 @@ app.post('/entry/:id/comments', (req, res) => {
         });
         
         console.log(`Updated comments on entry index ${entryIndex}.`);  
-      }
+        res.send({msg: 'mission success!'})}
     })
-  res.send({msg: 'mission success'});
+    
 })
 
 

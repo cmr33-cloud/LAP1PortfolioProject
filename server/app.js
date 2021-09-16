@@ -95,7 +95,7 @@ app.get('/entry/:id/comments', (req, res) => {
 })
 
 
-app.patch('/entry/:id/comments', (req, res) => {
+app.post('/entry/:id/comments', (req, res) => {
   
   let entryIndex= req.params.id-1;
   //   rewrite json 

@@ -172,7 +172,7 @@ function sendEmoji(id, emojiId, emojiCount) {
   
 
   const options = {
-    method: 'PATCH',
+    method: 'POST',
     mode: 'cors',
     body: JSON.stringify([emojiId, emojiCount]),
     headers: {

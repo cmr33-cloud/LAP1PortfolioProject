@@ -113,7 +113,6 @@ while (preview.children.length > 0) {
 };
   await fetch(`https://${host}/newentry`, options).then((res) => {
     console.log(res);
-    addEntry.hidden = false;
     Object.values(newEntry.children).forEach((element) => {
       element.value = "";
     });
@@ -122,7 +121,7 @@ while (preview.children.length > 0) {
 }
 
 addGiphyBtn.addEventListener("click", (e)=>{e.preventDefault(); 
-if(preview.children.length>0){gifadded = true; yourgif = preview.children[0].src; unhide(gifadded)
+if(preview.children.length>0){gifadded = true; yourgif = preview.children[0].src; unhide(gifadded)}
 else {alert("No gif selected!")}
 })
 

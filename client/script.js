@@ -320,10 +320,10 @@ console.log(entryId, commentText);
    .then((r) => r.json())
     .then((r) => console.log(r))
     .catch(console.warn);
-}
+
  
 
-console.log("update at 11:52");
+console.log("update at 11:58");
 
 
 

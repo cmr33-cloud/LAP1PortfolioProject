@@ -91,9 +91,9 @@ app.all("/entry/:id/reactions", (req, res) => {
   res.send(entries[req.params.id - 1].emojis);
 });
 
-// app.get('/entry/:id/comments', (req, res) => {
-//  res.send(entries[req.params.id-1].comments)
-// })
+app.get('/entry/:id/viewcomments', (req, res) => {
+res.send(entries[req.params.id-1].comments)
+})
 
 app.all("/entry/:id/comments", (req, res) => {
   let entryIndex = req.params.id - 1;

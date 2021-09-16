@@ -30,6 +30,11 @@ timeline.addEventListener("click", (e) => {
 
 });
 
+showNewEntryForm.addEventListener("click", (e) => {
+  if(newEntryForm.hidden){newEntryForm.hidden = false; showNewEntryForm.textContent = "Cancel"}
+  else {newEntryForm.hidden = true; showNewEntryForm.textContent = "New entry"}
+});
+
 searchByKeywordBtn.addEventListener("click", (e) => {
   e.preventDefault();
   let searchers = searchByKeywordInput.value.split(" ");

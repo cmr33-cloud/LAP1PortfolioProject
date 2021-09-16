@@ -406,8 +406,9 @@ fetch(`https://${host}/allentries`)
         
         (commentsCount = document.createElement("div"))
         commentsCount.className ="col"
+        commentsCount.textContent = `Comments:  ${a.comments.length}`;
          cardFooter.appendChild(commentsCount);
-         // commentsCount.textContent = `Comments:  ${a.comments.length}`
+         
 
         //  ------- emoji box inside card footer 
         (allTheEmojis = document.createElement("div"))

@@ -4,7 +4,7 @@ class Entries {
     constructor(data) {
         this.id = data.id,
         this.title = data.title,
-        this.description = data.description;
+        this.description = data.description,
         this.body = data.body,
         this.image = data.image,
         this.time = data.time,

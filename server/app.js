@@ -97,6 +97,9 @@ app.all("/entry/:id/reactions", (req, res) => {
 
 app.all("/entry/:id/comments", (req, res) => {
   let entryIndex = req.params.id - 1;
+  entries[entryIndex].comments.push(
+    {'date':
+    req.body[0], 'comment': req.body[1]});
   //   rewrite json
 
   fs.readFile("server/entries.json", "utf8", (err, data) => {

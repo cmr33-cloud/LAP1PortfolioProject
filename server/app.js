@@ -104,37 +104,34 @@ app.all("/entry/:id/comments", (req, res) => {
       console.log(`Error reading file: ${err}`);
       res.status(500).send({ msg: "mission failed!" });
     } else {
-      const fileData = JSON.parse(fs.readFileSync("server/entries.json"));
+      
+      const fileData = JSON.parse(fs.readFileSync('server/entries.json'));
+  
+        //Replace entry in JSON file with new entry withu updated reacts
+      
+        fileData[entryIndex].comments.push(
+          {'date':
+          req.body[0], 'comment': req.body[1]});  
+        const jsonString = JSON.stringify(fileData, null, 2);
+        fs.writeFile('server/entries.json', jsonString, (err) => {
+            if (err) {
+                console.log(`Error writing file: ${err}`);
+            }
+        });
+        
+        console.log(`Updated comments on entry index ${entryIndex}.`);  
+        res.status(200).send((fileData[entryIndex].comments))
+    
+}
+  })
+}
+)
 
-      //Replace entry in JSON file with new entry withu updated reacts
 
-      fileData[entryIndex].comments.push({
-        date: req.body[0],
-        comment: req.body[1],
-      });
-      const jsonString = JSON.stringify(fileData, null, 2);
-      fs.writeFile("server/entries.json", jsonString, (err) => {
-        if (err) {
-          console.log(`Error writing file: ${err}`);
-        }
-      });
 
-      console.log(`Updated comments on entry index ${entryIndex}.`);
-      res.status(200).send(entries[req.params.id - 1].comments);
-    }
-  });
-});
-
-app.get("/search", (req, res) => {
-  let results = [];
-  for (let a of Object.values(req.query)) {
-    for (let b of entries) {
-      if (b.tags.includes(a)) {
-        results.push(b);
-      }
-    }
-  }
-  res.json(results);
+app.get('/search', (req, res) => {let results = [];
+for(let a of Object.values(req.query)){for(let b of entries){if(b.tags.includes(a)){results.push(b)}}}
+res.json(results)
 });
 //app.listen(port, () => {console.log(`Listening on localhost:${port}...`)}) app.listen(process.env.PORT || 5000);
 

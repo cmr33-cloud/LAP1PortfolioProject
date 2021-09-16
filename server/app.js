@@ -123,10 +123,8 @@ app.post('/entry/:id/comments', (req, res) => {
         console.log(`Updated comments on entry index ${entryIndex}.`);  
       }
     })
-  res.json({'this is what you sent': req.body,
-  'this is what we tried to change': fileData[entryIndex].comments
+  res.send({msg: 'mission success'});
 })
-  });
 
 
 

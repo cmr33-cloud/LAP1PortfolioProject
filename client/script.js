@@ -15,6 +15,7 @@ const newCommentBtn = document.getElementById("addNewCommentBtn");
 
 const emojis = document.getElementById("addEntryEmojis");
 let gifadded;
+home.addEventListener("click", (e) => {window.location.reload()});
 
 //   Event Listeners  -  new entry
 timeline.addEventListener("click", (e) => {
@@ -228,12 +229,12 @@ addNewEntryBtn.addEventListener("click", (e) => {
 });
 
 //allows enter to bepressed instead of clicking the add new ntry button
-document.querySelector("body").addEventListener("keydown", (e) => {
-  if (e.key == "Enter") {
-    e.preventDefault();
-    addNewEntry();
-  }
-});
+// document.querySelector("body").addEventListener("keydown", (e) => {
+//   if (e.key == "Enter") {
+//     e.preventDefault();
+//     addNewEntry();
+//   }
+// });
 //      ------  get Entry By Id     render
 function entryById(e) {
   try {
@@ -355,7 +356,7 @@ console.log(entryId, commentText);
 fetch(`https://${host}/allentries`)
   .then((r) => r.json())
   .then((res) => {
-    for (let a of res) {
+    for (let a of res.slice().reverse()) {
       let current = document.createElement("article");
       timeline.appendChild(current);
       current.className = "col-md-5  col-sm-12 card text-center shadow mx-4 my-4";
@@ -452,14 +453,16 @@ function renderComments(element,data) {
   console.log(data.comments)
   for (i = 0; i < data.comments.length; i++) {
     const singleCommentBox = document.createElement('div');
-    const commentDate = document.createElement('p');
+    const commentDate = document.createElement('small');
     const commentText = document.createElement('p');
-
+    commentDate.style = "color: gray; display: inline";
     commentDate.textContent = data.comments[i].date;
     commentText.textContent = data.comments[i].comment;
-  
+
     singleCommentBox.appendChild(commentDate)
     singleCommentBox.appendChild(commentText)
+  
+    
     element.appendChild(singleCommentBox)
   }
     

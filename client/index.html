@@ -33,14 +33,29 @@
 
 <!--  -------------- logo and header -------  -->
 
-<div class="topnav" id = "topnav">
-    <a href = "index.html">🏠Home</a>
-<input type='button' id = "showNewEntryForm" value='New entry'>
-    <form id="search-bar">
-        <input type="search" id="searchByKeywordInput" placeholder="Search entries by keyword ..." />
-        <input type="submit" id="searchByKeywordBtn" value="Search">
+<nav class= "navbar-expand-lg navbar-light bg-light">
+   <button class="btn btn-link" id = "home">🏠 Home</button>
+    <button id = "showNewEntryForm" class = "btn btn-primary">New entry</button>
+    <!-- <div class="input-group">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control" />
+          <label class="form-label" for="form1">Search</label>
+        </div>
+        <button type="button" class="btn btn-primary">
+          
+        </button>
+      </div> -->
+    <form class="form-inline my-2 my-lg-0" id="search-bar">
+        <div class="input-group mb-3">
+        <input type="search" id="searchByKeywordInput" class="form-control mr-sm-2" placeholder="Search entries by keyword ..." />
+        <div class="input-group-append">
+            <button id='searchByKeywordBtn' class="btn btn-secondary btn-lg">
+                <i class="fas fa-search"></i>
+        </button>
+        </div>
+        </div>
     </form>  
-</div>
+</nav>
 <br><br><br>
 
 <!--  -------------- add new entry card -------  -->

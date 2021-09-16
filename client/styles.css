@@ -8,5 +8,6 @@
         position: fixed;
         display: flex;
       }
-      .topnav > button {
+      .topnav input {
       float: left;}
+      .nav > form {display:inline-block}

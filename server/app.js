@@ -91,9 +91,9 @@ app.all("/entry/:id/reactions", (req, res) => {
   res.send(entries[req.params.id - 1].emojis);
 });
 
-// app.get('/entry/:id/comments', (req, res) => {
-//  res.send(entries[req.params.id-1].comments)
-// })
+app.get('/entry/:id/viewcomments', (req, res) => {
+res.json(entries[req.params.id-1].comments)
+})
 
 app.all("/entry/:id/comments", (req, res) => {
   let entryIndex = req.params.id - 1;
@@ -121,7 +121,7 @@ app.all("/entry/:id/comments", (req, res) => {
                 console.log(`Error writing file: ${err}`);
                 res.status(500).send({msg: `Error writing file: ${err}`})
             }
-            else {res.status(200).send({msg: fileData[entryIndex].comments})}
+            else {res.status(201).send({msg: fileData[entryIndex].comments})}
         });
         
         console.log(`Updated comments on entry index ${entryIndex}.`);  

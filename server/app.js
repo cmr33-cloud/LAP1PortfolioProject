@@ -122,7 +122,6 @@ app.patch('/entry/:id/comments', (req, res) => {
     })
   res.send({'this is what you sent': req.body})
   })
-})
 
 
 

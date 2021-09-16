@@ -406,7 +406,7 @@ fetch(`https://${host}/allentries`)
         
         (commentsCount = document.createElement("div"))
         commentsCount.className ="col"
-        commentsCount.textContent = `Comments:  ${a.comments.length}`;
+        commentsCount.textContent = `${a.comments.length} comments`;
          cardFooter.appendChild(commentsCount);
          
 

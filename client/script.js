@@ -321,7 +321,7 @@ console.log(entryId, commentText);
     .then((r) => console.log(r))
     .catch(console.warn);
 
- 
+}
 
 console.log("update at 11:58");
 
@@ -336,10 +336,6 @@ fetch(`https://${host}/allentries`)
   .then((r) => r.json())
   .then((res) => {
     for (let a of res) {
-      
-    
-
-    
       let current = document.createElement("article");
       timeline.appendChild(current);
       current.class = "card";
@@ -446,4 +442,4 @@ function renderComments(element,data) {
 
     element.appendChild(newCommentBox)
    
-}}
+}

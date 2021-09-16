@@ -229,12 +229,12 @@ addNewEntryBtn.addEventListener("click", (e) => {
 });
 
 //allows enter to bepressed instead of clicking the add new ntry button
-document.querySelector("body").addEventListener("keydown", (e) => {
-  if (e.key == "Enter") {
-    e.preventDefault();
-    addNewEntry();
-  }
-});
+// document.querySelector("body").addEventListener("keydown", (e) => {
+//   if (e.key == "Enter") {
+//     e.preventDefault();
+//     addNewEntry();
+//   }
+// });
 //      ------  get Entry By Id     render
 function entryById(e) {
   try {

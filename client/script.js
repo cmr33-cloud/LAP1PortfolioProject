@@ -154,12 +154,14 @@ gifPreviewBtn.addEventListener("click", (e) => {
 // --  add emoji reactions
 
 function handleEmoji(e) {
+  let emojiCount;
   let targetEmoji = e.target.closest('a');
   let entry = e.target.closest('article');
   let entryId = entry.dataset.value;  
   console.log(entryId)
   // change number on the entry page
-  let emojiCount = parseInt(targetEmoji.querySelector('p').textContent) + 1;
+  if(targetEmoji.clicked){targetEmoji.clicked = false; emojiCount = parseInt(targetEmoji.querySelector('p').textContent) - 1}
+  else {targetEmoji.clicked = true; emojiCount = parseInt(targetEmoji.querySelector('p').textContent) + 1}
   targetEmoji.querySelector('p').textContent = String(emojiCount)
 
   //
@@ -400,6 +402,7 @@ function renderEmoji(element, data) {
     clickableEmoji.className += "emoji"
     icon = document.createElement('i')
     icon.className += emojiIcons[i]
+    icon.clicked = false;
 
 
     emojiCount = document.createElement('p')

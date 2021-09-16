@@ -281,9 +281,9 @@ function entryById(e) {
         
         const commentInput =document.getElementById('newCommentInput')
         console.log(commentInput)
-        // const submitNewCommentBtn = document.getElementById('submitNewCommentBtn')
-        // console.log(submitNewCommentBtn)
-        // submitNewCommentBtn.
+        const submitNewCommentBtn = document.getElementById('submitNewCommentBtn')
+        console.log(submitNewCommentBtn)
+        submitNewCommentBtn.
         newCommentBtn.addEventListener("click", (e) => {
           e.preventDefault(); 
 
@@ -316,7 +316,6 @@ console.log(entryId, commentText);
       "Content-Type": "application/json",
     },
   };
-  console.log(options);
 
    fetch(`https://${host}/entry/${entryId}/comments`, options)
    .then((r) => r.json())

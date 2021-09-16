@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 app.post("/newentry", (req, res) => { //handles post requests and then writes data to entries.json
   const data = req.body;
   const newEntry = Entries.createEntry(data);
-  const fileData = fs.readFileSync('server/entries.json');
+  const fileData = JSON.parse(fs.readFileSync('server/entries.json'));
   if (data.title !== 'This is an entry'){
   fileData.push(newEntry)
   fs.writeFileSync('server/entries.json', JSON.stringify(fileData, null, 2), (err) => {
@@ -70,7 +70,7 @@ app.all('/entry/:id/reactions', (req, res) => {
         console.log(`Error reading file: ${err}`);
     } else {
       
-      const fileData = fs.readFileSync('server/entries.json');
+      const fileData = JSON.parse(fs.readFileSync('server/entries.json'));
   
         //Replace entry in JSON file with new entry withu updated reacts
       
@@ -95,7 +95,7 @@ app.get('/entry/:id/comments', (req, res) => {
 })
 
 
-app.post('/entry/:id/comments', (req, res) => {
+app.patch('/entry/:id/comments', (req, res) => {
   
   let entryIndex= req.params.id-1;
   //   rewrite json 
@@ -105,12 +105,12 @@ app.post('/entry/:id/comments', (req, res) => {
         console.log(`Error reading file: ${err}`);
     } else {
       
-      const fileData = fs.readFileSync('server/entries.json')
+      const fileData = JSON.parse(fs.readFileSync('server/entries.json'))
   
         //Replace entry in JSON file with new entry withu updated reacts
       
         fileData[entryIndex].comments.push(req.body);  
-        const jsonString = JSON.stringify(fileData, null, 2)
+        const jsonString = JSON.stringify(fileData, null, 2);
         fs.writeFile('server/entries.json', jsonString, (err) => {
             if (err) {
                 console.log(`Error writing file: ${err}`);

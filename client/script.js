@@ -172,7 +172,7 @@ function sendEmoji(id, emojiId, emojiCount) {
   
 
   const options = {
-    method: 'POST',
+    method: 'PATCH',
     mode: 'cors',
     body: JSON.stringify([emojiId, emojiCount]),
     headers: {
@@ -292,7 +292,7 @@ function entryById(e) {
             commentInput.value.length <= 1000
             ) {
               addNewComment(entryId, commentInput.value);
-              window.location.reload(true);
+              //window.location.reload(true);
 
             } else {
               alert("Please say something nice.");

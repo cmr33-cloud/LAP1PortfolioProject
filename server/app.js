@@ -121,7 +121,7 @@ app.patch('/entry/:id/comments', (req, res) => {
         console.log(`Updated comments on entry index ${entryIndex}.`);  
       }
     })
-  res.send({'this is what you sent': req.body,
+  res.json({'this is what you sent': req.body,
   'this is what we tried to change': fileData[entryIndex].comments
 })
   });

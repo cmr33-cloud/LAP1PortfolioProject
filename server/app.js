@@ -92,7 +92,7 @@ app.all("/entry/:id/reactions", (req, res) => {
 });
 
 app.get('/entry/:id/viewcomments', (req, res) => {
-res.send(entries[req.params.id-1].comments)
+res.json(entries[req.params.id-1].comments)
 })
 
 app.all("/entry/:id/comments", (req, res) => {
@@ -118,7 +118,7 @@ app.all("/entry/:id/comments", (req, res) => {
                 console.log(`Error writing file: ${err}`);
                 res.status(500).send({msg: `Error writing file: ${err}`})
             }
-            else {res.status(200).send({msg: fileData[entryIndex].comments})}
+            else {res.status(201).send({msg: fileData[entryIndex].comments})}
         });
         
         console.log(`Updated comments on entry index ${entryIndex}.`);  

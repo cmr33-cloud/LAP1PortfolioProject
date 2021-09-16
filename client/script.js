@@ -117,18 +117,12 @@ while (preview.children.length > 0) {
     Object.values(newEntry.children).forEach((element) => {
       element.value = "";
     });
-    addEntry.value = "Add entry";
-    setTimeout(function () {
-      addEntry.hidden = true;
-    }, 3000);
+    unhide(addEntry)
   });
 }
 
 addGiphyBtn.addEventListener("click", (e)=>{e.preventDefault(); 
-if(preview.children.length>0){gifadded = true; yourgif = preview.children[0].src; gifAdded.hidden = false; 
-  setTimeout(function () {
-    gifAdded.hidden = true;
-  }, 3000);}
+if(preview.children.length>0){gifadded = true; yourgif = preview.children[0].src; unhide(gifadded)
 else {alert("No gif selected!")}
 })
 
@@ -292,8 +286,9 @@ function entryById(e) {
             commentInput.value.length <= 1000
             ) {
               addNewComment(entryId, commentInput.value);
+              commentInput.value = "";
               //window.location.reload(true);
-
+              unhide(comsucc)
             } else {
               alert("Please say something nice.");
             }
@@ -303,6 +298,12 @@ function entryById(e) {
    catch (error) {
     console.log(error);
   }
+}
+function unhide(object){
+  object.hidden = false;
+  setTimeout(function () {
+    object.hidden = true;
+  }, 3000);
 }
 // ----------------
 function addNewComment(entryId,commentText) {

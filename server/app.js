@@ -91,49 +91,52 @@ app.all("/entry/:id/reactions", (req, res) => {
   res.send(entries[req.params.id - 1].emojis);
 });
 
-app.get('/entry/:id/viewcomments', (req, res) => {
-res.json(entries[req.params.id-1].comments)
-})
+app.get("/entry/:id/comments", (req, res) => {
+  res.json(entries[req.params.id - 1].comments);
+});
 
-app.all("/entry/:id/comments", (req, res) => {
+app.put("/entry/:id/comments", (req, res) => {
   let entryIndex = req.params.id - 1;
   //   rewrite json
 
   fs.readFile("server/entries.json", "utf8", (err, data) => {
     if (err) {
       console.log(`Error reading file: ${err}`);
-      res.status(500).send({ msg: `Error reading file: ${err}`});
+      res.status(500).send({ msg: `Error reading file: ${err}` });
     } else {
-      
-      const fileData = JSON.parse(fs.readFileSync('server/entries.json'));
-  
-        //Replace entry in JSON file with new entry withu updated reacts
-      
-        fileData[entryIndex].comments.push(
-          {'date':
-          req.body[0], 'comment': req.body[1]});  
-        const jsonString = JSON.stringify(fileData, null, 2);
-        fs.writeFile('server/entries.json', jsonString, (err) => {
-            if (err) {
-                console.log(`Error writing file: ${err}`);
-                res.status(500).send({msg: `Error writing file: ${err}`})
-            }
-            else {res.status(201).send({msg: fileData[entryIndex].comments})}
-        });
-        
-        console.log(`Updated comments on entry index ${entryIndex}.`);  
-        
-    
-}
-  })
-}
-)
+      const fileData = JSON.parse(fs.readFileSync("server/entries.json"));
 
+      //Replace entry in JSON file with new entry withu updated reacts
 
+      fileData[entryIndex].comments = {
+        date: req.body[0],
+        comment: req.body[1],
+      };
+      const jsonString = JSON.stringify(fileData, null, 2);
+      fs.writeFile("server/entries.json", jsonString, (err) => {
+        if (err) {
+          console.log(`Error writing file: ${err}`);
+          res.status(500).send({ msg: `Error writing file: ${err}` });
+        } else {
+          res.status(201).send({ msg: fileData[entryIndex].comments });
+        }
+      });
 
-app.get('/search', (req, res) => {let results = [];
-for(let a of Object.values(req.query)){for(let b of entries){if(b.tags.includes(a)){results.push(b)}}}
-res.json(results)
+      console.log(`Updated comments on entry index ${entryIndex}.`);
+    }
+  });
+});
+
+app.get("/search", (req, res) => {
+  let results = [];
+  for (let a of Object.values(req.query)) {
+    for (let b of entries) {
+      if (b.tags.includes(a)) {
+        results.push(b);
+      }
+    }
+  }
+  res.json(results);
 });
 //app.listen(port, () => {console.log(`Listening on localhost:${port}...`)}) app.listen(process.env.PORT || 5000);
 

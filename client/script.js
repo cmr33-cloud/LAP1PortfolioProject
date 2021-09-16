@@ -308,7 +308,7 @@ function entryById(e) {
 function addNewComment(entryId,commentText) {
 console.log(entryId, commentText);
   const options = {
-    method: "POST",
+    method: "PUT",
     mode: 'cors',
     body: JSON.stringify([Date(), commentText]),
     headers: {

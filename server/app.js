@@ -101,7 +101,10 @@ app.get("/delete", (req, res) => {
 {if(Object.keys(b).length==0){wrong.push(b)};
 }
 for(let c of wrong){a.comments.splice(a.indexOf(c), 1)}
-}}
+}
+res.send(200).json({msg: "Mission accomplished!"})
+}
+
 )
 
 app.put("/entry/:id/comments", (req, res) => {

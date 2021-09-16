@@ -356,7 +356,7 @@ console.log(entryId, commentText);
 fetch(`https://${host}/allentries`)
   .then((r) => r.json())
   .then((res) => {
-    for (let a of res) {
+    for (let a of res.slice().reverse()) {
       let current = document.createElement("article");
       timeline.appendChild(current);
       current.className = "col-md-5  col-sm-12 card text-center shadow mx-4 my-4";

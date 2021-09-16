@@ -50,17 +50,25 @@ describe('API server', () => {
             .get('/entry/1')
             .expect(200)
             .expect({
-                id: 1,
-                title: 'People are nice and stuff',
-                body: "I'd like to thank the people of the world",
-                image: 'https://giphy.com/embed/mf8UbIDew7e8g',
-                tags: [ 'world', 'people', 'thank' ],
-                date: 'Tue Sep 14 2021 16:35:52 GMT+0100 (British Summer Time)',
-                emojis: [ 9, 3, 0 ],
-                comments: [
+                "id": 1,
+                "title": "The world is an amazing place!",
+                "body": "I'd like to thank the people of the world, it is so fantastic to live on such a beautiful planet. Everyday, the earth inspires me to do my best.",
+                "image": "https://giphy.com/embed/mf8UbIDew7e8g",
+                "tags": [
+                  "world",
+                  "people",
+                  "thank"
+                ],
+                "date": "Tue Sep 14 2021 16:35:52 GMT+0100 (British Summer Time)",
+                "emojis": [
+                  0,
+                  0,
+                  0
+                ],
+                "comments": [
                   {
-                    date: 'Fri Sep 10 2021 18:13:00 GMT+0100 (British Summer Time)',
-                    comment: 'great!'
+                    "date": "Fri Sep 10 2021 18:13:00 GMT+0100 (British Summer Time)",
+                    "comment": "great!"
                   }
                 ]
               }, done);
@@ -82,7 +90,7 @@ describe('API server', () => {
         request(api)
         .get('/entry/1/reactions')
         .expect(200)
-        .expect('[9,3,0]',done)
+        .expect('[0,0,0]',done)
         })
 
     it('retrieves the comment array by id on path /entry/:id/comments', (done) => {

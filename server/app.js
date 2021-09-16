@@ -105,7 +105,7 @@ app.patch('/entry/:id/comments', (req, res) => {
         console.log(`Error reading file: ${err}`);
     } else {
       
-      const fileData = JSON.parse(fs.readFileSync('server/entries.json'))
+      const fileData = JSON.parse(fs.readFileSync('server/entries.json'));
   
         //Replace entry in JSON file with new entry withu updated reacts
       
@@ -120,7 +120,11 @@ app.patch('/entry/:id/comments', (req, res) => {
         console.log(`Updated comments on entry index ${entryIndex}.`);  
       }
     })
-  res.send({msg: entries[req.params.id-1].comments})
+  res.send({
+    fileData: fileData,
+    entryIndex: entryIndex,
+    theComments: fileData[entryIndex].comments
+  })
 })
 
 

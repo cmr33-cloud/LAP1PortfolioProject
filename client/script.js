@@ -459,7 +459,7 @@ fetch(`https://${host}/allentries`)
         
         (commentsCount = document.createElement("div"))
         commentsCount.className ="col"
-        commentsCount.textContent = `${a.comments.length} comments`;
+        commentsCount.textContent = `${a.comments.length} comment`; if(a.comments.length>1){commentsCount.textContent += "s"};
          cardFooter.appendChild(commentsCount);
          
 

@@ -537,7 +537,7 @@ function renderComments(element,data) {
 
     element.appendChild(newCommentBox)
    
-}
+};
 
 //exported functions for testing
 module.exports = {

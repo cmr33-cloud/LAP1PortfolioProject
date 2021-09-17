@@ -12,8 +12,19 @@
       float: left;}
       .nav > form {display:inline-block}
 
+<<<<<<< HEAD
   article:hover{
    
     background-color: red !important;
   
   }    
+=======
+.relative-pos{
+  position: relative;
+  left: 300px;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size: 2.5rem;
+  margin-top: 50px;
+  color: rgba(3, 3, 94, 0.712);
+}
+>>>>>>> bb05dfdff4026a0ae15c6c4f43c5a3143205759f

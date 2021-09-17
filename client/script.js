@@ -293,12 +293,17 @@ function entryById(e) {
       // comments inside card body
       commentsWraper = document.createElement("div")
       commentsWraper.className = "text-start px-2 mt-4"
+      commentsWraper.id = "commentsBox"
       cardBody.appendChild(commentsWraper)
 
       comments = document.createElement("div")
+
       
       commentsWraper.appendChild(comments);
+
       renderComments(comments,data)
+
+      renderAddCommentBox(cardBody)
       
       //  emijis 
       allTheEmojis = document.createElement("div")
@@ -328,19 +333,22 @@ function entryById(e) {
         
         submitNewCommentBtn.addEventListener("click", (e) => {
           e.preventDefault(); 
+          let nnn = document.getElementById('commentsBox')
+            console.log(nnn)
+            console.log(commentInput.value)
 
-          
           if (
             commentInput.value != "" &&
             commentInput.value.length <= 1000
             ) {
               addNewComment(entryId, commentInput.value);
-              renderNewComment(Date(),commentInput.value,commentsWraper)
+              renderNewComment(Date(),commentInput.value,nnn)
               commentInput.value = "";
               //window.location.reload(true);
               unhide(comsucc)
             } else {
               alert("Please say something nice.");
+              console.log(nnn)
             }
           });
         
@@ -378,7 +386,8 @@ function addNewComment(entryId,commentText) {
   
 }
 
-// adding new comment on the card 
+//   -----  adding new comment on the card 
+
  function renderNewComment(date, text, element) {
  const singleCommentBox = document.createElement('div');
     const commentDate = document.createElement('small');
@@ -495,7 +504,7 @@ function renderEmoji(element, data) {
 //  ----------------  render comment box  
 function renderComments(element,data) {
   //  render existing comments
-  console.log(data.comments)
+  
   for (i = 0; i < data.comments.length; i++) {
     const singleCommentBox = document.createElement('div');
     const commentDate = document.createElement('small');
@@ -512,6 +521,9 @@ function renderComments(element,data) {
     
     element.appendChild(singleCommentBox)
   }
+}
+
+function renderAddCommentBox(element) {
     
     // new comment box
     const newCommentBox = document.createElement('form');
